@@ -1,11 +1,10 @@
 const mongoose=require('mongoose')
 
 const ProductSchema = new mongoose.Schema({
-    ID: Number,
-    Name: String,
-    Category: String,
-    Price: Number,
-    Quantity: Number
+    title: String,
+    price: Number,
+    stock: Number,
+    category: String
   }, { collection: 'Product' }); // Specify the collection name as 'teams'
   
   // Create a Mongoose model for the 'teams' collection
