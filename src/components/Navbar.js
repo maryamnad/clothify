@@ -11,8 +11,8 @@ function Navbar() {
             <Link to="/Home" className="logo"><img src={logo} alt=""/></Link>
             <ul className="navbar">
                 <li><Link to="/Home">Home</Link></li>
-                <li><Link to="/Shop">shop</Link></li>
-                <li><Link to="/Outfits">outfits</Link></li>
+                <li><Link to="/Women">Women</Link></li>
+                <li><Link to="/Men">Men</Link></li>
                 <li><Link to="/About">About</Link></li>
             </ul>
     
