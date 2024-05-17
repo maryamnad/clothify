@@ -102,14 +102,13 @@ const getUser = async(req, res, next) => {
     let user;
     try{
         user = await User.findById(userId, "-password");
-        res.json(userId)
     } catch (err) {
         return new Error(err)
     }
     if (!user) {
         return res.status(404).json({message: "User not found"})
     }
-    // return res.status(200).json({ id: user.id });
+    return res.status(200).json({user});
 }
 
 const refreshToken = (req,res,next) => {
