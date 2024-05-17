@@ -1,7 +1,7 @@
 const mongoose=require('mongoose')
 
 const OderSchema = new mongoose.Schema({
-    ID: Number,
+    IDnum: Number,
     Price: Number,
     CustomerID: Number,
     OrderDate: String,
