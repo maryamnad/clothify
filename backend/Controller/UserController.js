@@ -158,9 +158,21 @@ const logout = (req, res) => {
     
 }
 
+const getcustomer= async (req, res) => {
+    try {
+      const data = await User.find();
+      res.json(data);
+      console.log("Done")
+    } catch (err) {
+      console.error(err); // Print any errors to the console for debugging
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  };
+
 exports.logout = logout;
 exports.signup = signup;
 exports.login = login;
 exports.verifyToken = verifyToken;
 exports.getUser = getUser;
 exports.refreshToken = refreshToken;
+exports.getcustomer = getcustomer;
