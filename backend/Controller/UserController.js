@@ -32,39 +32,42 @@ const signup = async (req,res) => {
 }
 
 const login = async (req, res) => {
-    const { email, password } = req.body;
-    
-    let existingUser;
+    const { Email, Password } = req.body;
+  
     try {
-        existingUser = await User.findOne({email: email});
-    } catch (err) {
-        console.log(err);
-    }
-    if (!existingUser) {
-        return res.status(400).json({message: "User not found, Please sign up."})
-    }
-    const isPasswordCorrect = bcrypt.compareSync(password, existingUser.password);
-    if(!isPasswordCorrect){
-        return res.status(400).json({message: "Invaild Email/Password"})
-    }
-    const token = jwt.sign({id: existingUser._id}, process.env.JWT_SECRET_KEY,{
-        expiresIn: "35s" //1hr
-    });
-    console.log("Generated Token\n", token);
-    if (req.cookies[`${existingUser._id}`]) {
-        req.cookies[`${existingUser._id}`] = ""
-    }
-    res.cookie(String(existingUser._id), token, {
-        path:"/",
-        expires: new Date(Date.now() + 1000 * 30),
+      // Check if user with provided email exists
+      const existingUser = await User.findOne({ Email });
+  
+      if (!existingUser) {
+        return res.status(400).json({ message: 'User not found, Please sign up.' });
+      }
+  
+      // Compare the provided password with the hashed password stored in the database
+      const isPasswordCorrect = await bcrypt.compare(Password, existingUser.Password);
+  
+      if (!isPasswordCorrect) {
+        return res.status(400).json({ message: 'Invalid Email/Password' });
+      }
+  
+      // Generate JWT token
+      const token = jwt.sign({ id: existingUser._id }, JWT_SECRET_KEY, {
+        expiresIn: '1h' // Token expiry time
+      });
+  
+      // Set the token as a cookie (optional, depends on your authentication strategy)
+      res.cookie('token', token, {
         httpOnly: true,
-        sameSite: "lax",
-    })
-
-    return res
-    .status(200)
-    .json({message: "Successfully Logged In", user: existingUser, token});
-}
+        sameSite: 'strict',
+        // Other cookie options like 'secure' can be added if using HTTPS
+      });
+  
+      // Return success message along with user data and token
+      res.json({ message: 'Successfully Logged In', user: existingUser, token });
+    } catch (error) {
+      console.error('Error during login:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  };
 
 const verifyToken = (req,res,next) => {
     // const cookies = req.headers.cookie;
@@ -87,7 +90,7 @@ const verifyToken = (req,res,next) => {
     if (!token){
         return res.status(404).json({message: "Token not found"});
     }
-    jwt.verify(String(token), process.env.JWT_SECRET_KEY, (err,user) => {
+    jwt.verify(String(token), JWT_SECRET_KEY, (err,user) => {
         if (err){
             return res.status(400).json({message: "Invalid Token"})
         }
@@ -117,7 +120,7 @@ const refreshToken = (req,res,next) => {
     if (!prevToken) {
         return res.status(400).json({message: "Couldn't find token"})
     }
-    jwt.verify(String(prevToken), process.env.JWT_SECRET_KEY, (err,user) => {
+    jwt.verify(String(prevToken), JWT_SECRET_KEY, (err,user) => {
         if (err){
             console.log(err);
             return res.status(403).json({message: "Authentication failed"});
@@ -125,7 +128,7 @@ const refreshToken = (req,res,next) => {
         res.clearCookie(`${user.id}`);
         req.cookies[`${user.id}`] = "";
 
-        const token = jwt.sign({id: user.id}, process.env.JWT_SECRET_KEY, {
+        const token = jwt.sign({id: user.id}, JWT_SECRET_KEY, {
             expiresIn: "35s"
         });
         console.log("Re-generated Token\n", token);

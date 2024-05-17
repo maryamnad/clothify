@@ -19,8 +19,10 @@ import Cart from './screens/Cart.js'
 import './App.css'
 
 function App() {
-  const isLoggedIn = useSelector(state => state.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   console.log("isLoggedIn : " , isLoggedIn);
+  const user = useSelector((state) => state.auth.user);
+  console.log(user)
   return (
     
     <Router>

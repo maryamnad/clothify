@@ -10,6 +10,8 @@ function SignInForm() {
     Email: "",
     Password: ""
   });
+
+  const [data,setdata]=React.useState([])
   const handleChange = evt => {
     const value = evt.target.value;
     setState({
@@ -23,16 +25,27 @@ function SignInForm() {
   
   
   const sendRequest = async () => {
-    const res = await axios.post("http://127.0.0.1:5000/api/login", {
-      Email: state.Email,
-      Password: state.Password
-    }).catch(err => console.log(err));
-    
-  }  
+    try {
+        const res = await axios.post("http://127.0.0.1:5000/api/login", {
+            Email: state.Email,
+            Password: state.Password
+        });
+        const { message, user, token } = res.data;
+        setdata(user);
+        console.log(data)
+        const { Email, Password } = state;
+        alert(`You are login with email: ${Email} and password: ${Password}`);
+        dispatch(authActions.login(user));
+        console.log(user)
+        history("/user");
+    } catch (err) {
+      alert("Incorrect Email or Password");
+      
+    }
+}
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    const { Email, Password } = state;
-    alert(`You are login with email: ${Email} and password: ${Password}`);
+    
 
     for (const key in state) {
       setState({
@@ -41,8 +54,7 @@ function SignInForm() {
       });
     }
     sendRequest()
-    .then(()=> dispatch(authActions.login()))
-    .then(()=> history("/user"));
+    
   };
 
   
