@@ -75,8 +75,10 @@ a{
     color: var(--secondary-color);
     text-decoration: none;
 }
+
 a:hover{
-    color: var(--primary-color);
+    color:  var(--secondary-color);
+    background-color: var(--primary-color);
 }
 
 .social-icons i:hover{
