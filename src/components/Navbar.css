@@ -46,7 +46,8 @@ header{
 }
 
 .navbar a:hover{
-    color: var(--primary-color);
+    color:  var(--secondary-color);
+    background-color: var(--primary-color);
 }
 
 .navicon{
