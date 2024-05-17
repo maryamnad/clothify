@@ -26,7 +26,8 @@
 
 const express = require('express');
 const router = express.Router();
-const { signup, login, verifyToken, getUser, refreshToken, logout  } = require("../Controller/UserController");
+const { signup, login, verifyToken, getUser, refreshToken, logout, getcustomer  } = require("../Controller/UserController");
+const { newprod, getprod, updateprod,deleteprod } = require("../Controller/ProductController");
 
 router.get('/', (req,res,next) => {
     res.send("hello!!");
@@ -36,4 +37,9 @@ router.post("/login", login);
 router.get("/user", verifyToken, getUser);
 router.get("/refresh", refreshToken, verifyToken, getUser);
 router.post("/logout", verifyToken, logout);
+router.post("/newprod", newprod);
+router.get("/getprod", getprod);
+router.get("/getcustomer",getcustomer)
+router.put("/updateprod/:_id",updateprod)
+router.delete("/deleteprod/:_id",deleteprod)
 module.exports = router;

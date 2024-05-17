@@ -10,6 +10,7 @@ import About from './screens/About'
 import Terms from './screens/Terms'
 import Privacy from './screens/Policy'
 import UserProfile from './screens/User/UserProfile'
+import Nice from './admin/index'
 
 import { useSelector } from 'react-redux';
 import Cart from './screens/Cart.js'
@@ -45,6 +46,7 @@ function App() {
         </Routes>
       </div>
     </Router>
+    // <BrowserRouter><Nice/></BrowserRouter>
   );
 }
 
