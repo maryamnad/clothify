@@ -11,6 +11,7 @@ import AccountSetting from '../../components/UserProfile/AccountSetting';
 import ChangePassword from '../../components/UserProfile/ChangePassword';
 import YourOrders from '../../components/UserProfile/YourOrders';
 import './UserProfile.css'
+import LegalNotice from '../../components/UserProfile/LegalNotice';
 
 const UserProfile = () => {
 
@@ -34,6 +35,8 @@ const UserProfile = () => {
                 {activepage==='accountsettings' && <AccountSetting/>}
                 {activepage==='changepassword' && <ChangePassword/>}
                 {activepage==='yourorders' && <YourOrders/>}
+                {activepage==='legalnotice'&&<LegalNotice/>}
+                
             </div>
         </div>
 
