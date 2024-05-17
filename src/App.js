@@ -11,6 +11,10 @@ import Terms from './screens/Terms'
 import Privacy from './screens/Policy'
 import UserProfile from './screens/User/UserProfile'
 import Admin from './admin/index'
+import Women from './screens/Women'
+import Men from './screens/Men'
+
+
 import { BrowserRouter } from 'react-router-dom'
 
 import { useSelector } from 'react-redux';
@@ -45,7 +49,10 @@ function App() {
           
           <Route exact path='/cart' element={<Cart/>}/>
 
-          
+          <Route exact path="/Women" element={<Women/>}/>
+            
+          <Route exact path="/Men" element={<Men/>}/>
+  
         </Routes>
         
       </div>
