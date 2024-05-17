@@ -1,0 +1,42 @@
+a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+  }
+  
+  a:hover {
+    /* background-color: #b8954b; */
+    color: f5eeee;
+  }
+  
+  .previous {
+     right: 0%;
+      bottom: 0%;
+    background-color: #f1f1f1;
+    color: black;
+  }
+  
+  body {
+      margin: 0;
+      padding: 0;
+  }
+  
+  .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+  }
+  
+  h1 {
+      color: #b8954b;
+      text-align: center;
+  }
+  
+  .about-content {
+      margin-top: 20px;
+      text-align: justify;
+  }
+  
+  .about-content p {
+      line-height: 1.6;
+  }

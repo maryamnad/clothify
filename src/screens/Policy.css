@@ -1,0 +1,27 @@
+a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+  }
+  
+  a:hover {
+    background-color: #b8954b;
+    color: f5eeee;
+  }
+  
+  .previous {
+     right: 0%;
+      bottom: 0%;
+    background-color: #f1f1f1;
+    color: black;
+  }
+  
+  h1{
+      text-align: center;
+      color:#b8954b;
+  }
+  
+  .text p{
+      text-align: justify;
+  }
+  

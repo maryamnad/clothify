@@ -1,0 +1,9 @@
+[
+    {
+        "ID":1,
+        "Price": 35000,
+        "CustomerID": 2,
+        "OrderDate": "22/11/2000",
+        "Status": "Delivered"
+    }
+]
