@@ -1,17 +1,17 @@
-.Foot{
+footer{
     background: var(--third-color);
     padding-top: 50px;
     padding-bottom: 0px;
     margin-bottom: 0px;
 }
-.cont{
+.containerr{
     width: 1140px;
     margin: auto;
     display: flex;
     justify-content: center;
 }
 
-.Foot-content{
+.footer-content{
     width: 33.3%;
 }
 
@@ -21,13 +21,13 @@ h3{
     margin-bottom: 15px;
     text-align: center;
 }
-.Foot-content p{
+.footer-content p{
     color: var(--secondary-color);
     width:190px;
     margin: auto;
     padding: 7px;
 }
-.Foot-content ul{
+.footer-content ul{
     text-align: center;
 }
 .list{

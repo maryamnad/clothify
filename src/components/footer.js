@@ -4,15 +4,15 @@ import './footer.css'
 function Footer() {
     return (
         <div className="Footer">
-            <footer className="Foot">
-                <div class="cont">
-                    <div class="Foot-content">
+            <footer>
+                <div class="containerr">
+                    <div class="footer-content">
                         <h3>Contact Us</h3>
                         <p><Link to="www.google.com">clothify@business.com</Link></p>
                         <p><Link to="tel:+923210000000">+92 321 0000000</Link></p>
                         <p>Lahore, Pakistan</p>
                     </div>
-                    <div class="Foot-content">
+                    <div class="footer-content">
                         <h3>Quick Links</h3>
                         <ul class="list">
                             <li><Link to="/Home">Home</Link></li>
@@ -22,7 +22,7 @@ function Footer() {
                             
                         </ul>
                     </div>
-                    <div class="Foot-content">
+                    <div class="footer-content">
                         <h3>Follow Us</h3>
                         <ul class="social-icons">
                         <li><Link to=""><i class="fab fa-facebook"></i></Link></li>
