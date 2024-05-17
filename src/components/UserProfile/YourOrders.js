@@ -80,7 +80,7 @@ const YourOrders = () => {
 
                                 {item.status}</p>
                         </td>
-                        <td>{item.total}</td>
+                        <td>Rs.{item.total}</td>
                     </tr>
 
                 )
