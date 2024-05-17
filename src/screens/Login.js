@@ -27,8 +27,8 @@ function SignInForm() {
       Email: state.Email,
       Password: state.Password
     }).catch(err => console.log(err));
-    // const data = await res.data;
-    // return data;
+    const data = await res.data;
+    console.log(data)
   }  
   const handleOnSubmit = (e) => {
     e.preventDefault();

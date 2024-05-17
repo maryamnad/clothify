@@ -23,32 +23,32 @@ function App() {
   console.log("isLoggedIn : " , isLoggedIn);
   return (
     
-    // <Router>
-    //   <div className='app'>
-    //     <Routes>
-    //     <Route path='/' element={<Login />}/>
-    //         {isLoggedIn && <Route path='/user' element={<Home />} />}{" "} 
+    <Router>
+      <div className='app'>
+        <Routes>
+        <Route path='/' element={<Login />}/>
+            {isLoggedIn && <Route path='/user' element={<Home />} />}{" "} 
           
-    //       {/* <Route exact path="/" element={<Home/>}/> */}
+          {/* <Route exact path="/" element={<Home/>}/> */}
 
-    //       <Route exact path="/Home" element={<Home/>}/>
+          <Route exact path="/Home" element={<Home/>}/>
 
-    //       <Route exact path="/About" element={<About/>}/>
+          <Route exact path="/About" element={<About/>}/>
 
-    //       <Route exact path="/Terms" element={<Terms/>}/>
+          <Route exact path="/Terms" element={<Terms/>}/>
 
-    //       <Route exact path="/Privacy" element={<Privacy/>}/>
+          <Route exact path="/Privacy" element={<Privacy/>}/>
 
-    //       <Route exact path='/user/:activepage' element={<UserProfile/>}/>
+          <Route exact path='/user/:activepage' element={<UserProfile/>}/>
           
-    //       <Route exact path='/cart' element={<Cart/>}/>
+          <Route exact path='/cart' element={<Cart/>}/>
 
           
-    //     </Routes>
+        </Routes>
         
-    //   </div>
-    // </Router>
-    <BrowserRouter><Admin/></BrowserRouter>
+      </div>
+    </Router>
+    // <BrowserRouter><Admin/></BrowserRouter>
     
   );
 }

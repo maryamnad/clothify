@@ -1,7 +1,19 @@
 import React from 'react'
 import './AccountSetting.css'
+import axios from 'axios'
+import { useEffect, useState } from "react";
 
 const AccountSetting = () => {
+  const [dataSource, setDataSource] = useState([]);
+  useEffect(() => {
+    // setLoading(true);
+    axios.get("http://127.0.0.1:5000/api/getcustomer")
+      .then((res) => {
+        setDataSource(res.data);
+        // setLoading(false);
+      })
+    
+  }, []);
   return (
     <div className='accountsettings'>
       <h1 className='mainhead1'>Personal Information</h1>
