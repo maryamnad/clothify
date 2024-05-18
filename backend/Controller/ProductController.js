@@ -38,7 +38,7 @@ const newprod = async (req, res) => {
         price,
         stock,
         category,
-        link: imagePath,
+        link: imageName,
       });
 
       await prod.save();

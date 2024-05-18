@@ -1,9 +1,11 @@
-import { Button, Form, Input, Modal, Space, Table, Typography, Upload } from "antd";
+import { Button, Form, Input, Modal, Space, Table, Typography, Upload, Image, Avatar } from "antd";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { UploadOutlined } from '@ant-design/icons';
 
+
 function Inventory() {
+  const imageUrl = "file:///"
   const [loading, setLoading] = useState(false);
   const [dataSource, setDataSource] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -57,8 +59,6 @@ function Inventory() {
   form.append("price", values.price);
   form.append("stock", values.stock);
   form.append("category", values.category);
-  
-  // form.append("image", values.image);
   console.log(values)
 
     try {
@@ -129,11 +129,6 @@ function Inventory() {
           {
             title: "ID",
             dataIndex: "_id"
-          },
-          {
-            title: "Image",
-            dataIndex: "link",
-            render: (image) => <Image src={image} width={50} />,
           },
           {
             title: "Title",

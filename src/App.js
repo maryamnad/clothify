@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Login from './screens/sign.js';
 import Home from './screens/Home';
@@ -10,32 +10,34 @@ import UserProfile from './screens/User/UserProfile';
 import Women from './screens/Women';
 import Men from './screens/Men';
 import Cart from './screens/Cart.js';
+import Admin from './admin'
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   return (
-    <Router>
-      <div className='app'>
-        <Routes>
-          <Route path="/Home" element={<Home />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/About" element={<About />} />
-          <Route path="/Terms" element={<Terms />} />
-          <Route path="/Privacy" element={<Privacy />} />
-          <Route path='/cart' element={<Cart />} />
-          <Route path="/Women" element={<Women />} />
-          <Route path="/Men" element={<Men />} />
-          <Route path="/login" element={<Login />} />
-          {isLoggedIn ? (
-            <Route path='/user/:activepage' element={<UserProfile />} />
-          ) : (
-            <Route path='/user/*' element={<Navigate to="/login" />} />
-          )}
+    // <Router>
+    //   <div className='app'>
+    //     <Routes>
+    //       <Route path="/Home" element={<Home />} />
+    //       <Route path="/" element={<Home />} />
+    //       <Route path="/About" element={<About />} />
+    //       <Route path="/Terms" element={<Terms />} />
+    //       <Route path="/Privacy" element={<Privacy />} />
+    //       <Route path='/cart' element={<Cart />} />
+    //       <Route path="/Women" element={<Women />} />
+    //       <Route path="/Men" element={<Men />} />
+    //       <Route path="/login" element={<Login />} />
+    //       {isLoggedIn ? (
+    //         <Route path='/user/:activepage' element={<UserProfile />} />
+    //       ) : (
+    //         <Route path='/user/*' element={<Navigate to="/login" />} />
+    //       )}
           
-        </Routes>
-      </div>
-    </Router>
+    //     </Routes>
+    //   </div>
+    // </Router>
+    <BrowserRouter><Admin/></BrowserRouter>
   );
 }
 
