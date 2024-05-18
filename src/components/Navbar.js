@@ -19,7 +19,7 @@ function Navbar() {
             <div className="navicon">
                 <Link to="/"><i className='bx bx-search'></i></Link>    
                 <Link to="/user/accountsettings"> <i className='bx bxs-user'></i></Link>    
-                <Link to="/"> <i className='bx bx-cart'></i></Link>    
+                <Link to="/cart"> <i className='bx bx-cart'></i></Link>    
         
                 <div className="bx bx-menu" id="menuicon"></div>
             </div>    

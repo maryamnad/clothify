@@ -156,6 +156,19 @@ border-radius: 2px;
 .hearticon:hover{
     color: var(--primary-color);
 }
+.warning{
+    height: 40px;
+    width: 250px;
+    position:absolute;
+    right: 0;
+    top:10%;
+    background-color: red;
+    font-size: 1rem;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+
+}
 
 #cart{
     color: black;

@@ -24,7 +24,84 @@ export default function Home() {
     const changeSlide = (step) => {
         setCurrentSlide(currentSlide + step);
     };
+    const[show,setShow]=useState(true);
+    const[warning,setWarning]=useState(false);
 
+    const [cart, setCart] = useState(() => {
+        // Retrieve initial cart state from localStorage, if available
+        const savedCart = localStorage.getItem('cart');
+        return savedCart ? JSON.parse(savedCart) : [];
+    });
+
+    // Add to cart function
+    const addtocart = (item) => {
+        console.log(cart.length);
+        console.log("here");
+        console.log(item);
+
+        // Check if the item is already in the cart
+        let isPresent = cart.some(product => product.image === item.image);
+        
+        if (!isPresent) {
+            const newCart = [...cart, item];
+            setCart(newCart);
+            // Update the cart in localStorage
+            localStorage.setItem('cart', JSON.stringify(newCart));
+        }
+        else{
+            setWarning(true);
+            setTimeout(()=>
+                setWarning(false),2000
+            )
+            return;
+        }
+    };
+    // const [cart,setCart]=useState([])
+
+    // const addtocart=(item)=>{
+    //     //  let cart=localStorage.getItem('cart');
+    //     // console.log(cart.length);
+    //     // console.log("here")
+    //     // console.log(item)
+
+    //     // let isPresent=false;
+    //     // cart.array.forEach((product) => {
+    //     //     if(item.image===product.image)
+    //     //         isPresent=true;
+            
+    //     // })
+    //     // if(!isPresent)
+    //     //     return;
+    //     // setCart([...cart,item]);
+    //     let cart = localStorage.getItem('cart');
+    
+    //     // Initialize cart as an empty array if it's not found in localStorage
+    //     if (!cart) {
+    //         cart = [];
+    //     } else {
+    //         cart = JSON.parse(cart);
+    //     }
+    //     console.log(cart.length);
+    //     console.log("here");
+    //     console.log(item);
+    
+    //     // Check if the item is already in the cart
+    //     let isPresent = false;
+    //     cart.forEach((product) => {
+    //         if (item.image === product.image) {
+    //             isPresent = true;
+    //         }
+    //     });
+    
+    //     if (!isPresent) {
+    //         cart.push(item);
+    //     }
+    
+    //     // Update the cart in localStorage
+    //     localStorage.setItem('cart', JSON.stringify(cart));
+    // };
+  
+    
 
 
   
@@ -32,6 +109,7 @@ export default function Home() {
   return (
     <>
         <Navbar/>
+       
         
             <div className="Homeimage">
                 <section className="mainhome">
@@ -78,9 +156,9 @@ export default function Home() {
                                 <i id="rating"className='bx bxs-star'></i>
                                 <i id="rating"className='bx bxs-star'></i>
                             </h4> 
-
+{/* onClick={addtocart(product) */}
                             <div><span className='product-price'>{product.price} </span>
-                                <button className="add-to-cart-btn" href="/">
+                                <button className="add-to-cart-btn" href="/" onClick={()=>addtocart(product)}>
                                     <span className='bx bx-cart' id="cart" 
                                     >Add to cart</span> 
                                 </button> 
@@ -88,309 +166,11 @@ export default function Home() {
                         </div>
                     </div>
                     ))}
+                    {
+                        warning && <div className='warning'> Item is already added to cart</div>
+                    }
 
-                    {/* <div className="row">
-                        <img src={img1} alt=""/>
-                        <div className="itemtext">
-                            <h5>Sale</h5>
-                        </div>
-                        <div className="hearticon">
-                            <i className='bx bx-heart'></i>
-                        </div>
-                
-                        <div className="details">
-                            <h4>Mastani
-                                <i id="rating"className='bx bxs-star sty' 
-                                ></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                            </h4> 
-
-                            <p>PKR 4,999 
-                                <a href="/">
-                                    <i className='bx bx-cart sty' id="cart" 
-                                    >Add to cart</i> 
-                                </a> 
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <img src={img2} alt=""/>
-                        <div className="itemtext">
-                        </div>
-                        <div className="hearticon">
-                        <i className='bx bx-heart'></i>
-                        </div>
-                
-                        <div className="details">
-                            <h4>Deewani
-                                <i id="rating"className='bx bxs-star sty' 
-                                ></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating" className='bx bxs-star-half'></i>  
-                            </h4> 
-
-                            <p>PKR 3,999 
-                                <a href="/">
-                                    <i className='bx bx-cart sty' id="cart" 
-                                    >Add to cart</i> 
-                                </a> 
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <img src={img3} alt=""/>
-                        <div className="itemtext">
-                            <h5>Sale</h5>
-                        </div>
-                        <div className="hearticon">
-                            <i className='bx bx-heart'></i>
-                        </div>
-                
-                        <div className="details">
-                            <h4>Rajkumari
-                                <i id="rating"className='bx bxs-star sty' 
-                                ></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating" className='bx bxs-star-half'></i>  
-                            </h4> 
-
-                            <p>PKR 6,999 
-                                <a href="/">
-                                    <i className='bx bx-cart sty' id="cart" 
-                                    >Add to cart</i> 
-                                </a> 
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <img src={img4} alt=""/>
-                        <div className="itemtext">
-                            <h5>Sale</h5>
-                        </div>
-                        <div className="hearticon">
-                            <i className='bx bx-heart'></i>
-                        </div>
-                
-                        <div className="details">
-                            <h4>Madhuri
-                                <i id="rating"className='bx bxs-star stys' 
-                                ></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating" className='bx bxs-star-half'></i>  
-                            </h4> 
-
-                            <p>PKR 5,999 
-                                <a href="/">
-                                    <i className='bx bx-cart sty' id="cart" 
-                                    >Add to cart</i> 
-                                </a>    
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <img src={img5} alt=""/>
-                        <div className="itemtext">
-                        </div>
-                        <div className="hearticon">
-                            <i className='bx bx-heart'></i>
-                        </div>
-                    
-                        <div className="details">
-                            <h4>Pankhari
-                                <i id="rating"className='bx bxs-star sty' 
-                                ></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i> 
-                            </h4> 
-
-                            <p>PKR 7,999 
-                                <a href="/">
-                                    <i className='bx bx-cart sty' id="cart" 
-                                    >Add to cart</i> 
-                                </a> 
-                            </p>
-                        </div>
-                    </div>
-
-
-                    <div className="row">
-                        <img src={img6} alt=""/>
-                        <div className="itemtext">
-                        
-                        </div>
-                        <div className="hearticon">
-                            <i className='bx bx-heart'></i>
-                        </div>
-                    
-                        <div className="details">
-                            <h4>Indhurmati
-                                <i id="rating"className='bx bxs-star sty' 
-                                ></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating" className='bx bxs-star-half'></i> 
-                            </h4> 
-
-                            <p>PKR 9,999 
-                                <a href="/">
-                                    <i className='bx bx-cart sty' id="cart" 
-                                    >Add to cart</i> 
-                                </a> 
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <img src={img7} alt=""/>
-                        <div className="itemtext">
-                            <h5>Sale</h5>
-                        </div>
-                        <div className="hearticon">
-                            <i className='bx bx-heart'></i>
-                        </div>
-                    
-                        <div className="details">
-                            <h4>Phankraji
-                                <i id="rating"className='bx bxs-star sty' 
-                                ></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating" className='bx bxs-star-half'></i> 
-                            </h4> 
-
-                            <p>PKR 10,999 
-                                <a href="/">
-                                    <i className='bx bx-cart sty' id="cart" 
-                                    >Add to cart</i> 
-                                </a> 
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <img src={img8} alt=""/>
-                        <div className="itemtext">
-                            <h5>Sale</h5>
-                        </div>
-                        <div className="hearticon">
-                            <i className='bx bx-heart'></i>
-                        </div>
-                    
-                        <div className="details">
-                            <h4>Neelumpari
-                                <i id="rating"className='bx bxs-star sty' 
-                                ></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating" className='bx bxs-star-half'></i> 
-                            </h4> 
-
-                            <p>PKR 9,999 
-                                <a href="/">
-                                    <i className='bx bx-cart sty' id="cart" 
-                                    >Add to cart</i> 
-                                </a> 
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <img src={img9} alt=""/>
-                        <div className="itemtext">
-                            
-                        </div>
-                        <div className="hearticon">
-                            <i className='bx bx-heart'></i>
-                        </div>
-                        
-                        <div className="details">
-                            <h4>Sohanpari
-                                <i id="rating"className='bx bxs-star sty' 
-                                ></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating" className='bx bxs-star-half'></i> 
-                            </h4> 
-
-                            <p>PKR 4,999 
-                                <a href="#">
-                                    <i className='bx bx-cart sty' id="cart" 
-                                    >Add to cart</i> 
-                                </a> 
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <img src={img3} alt=""/>
-                        <div className="itemtext">
-                            <h5>Sale</h5>
-                        </div>
-                        <div className="hearticon">
-                            <i className='bx bx-heart'></i>
-                        </div>
-                        
-                        <div className="details">
-                            <h4>Rajkumari
-                                <i id="rating"className='bx bxs-star sty' 
-                                ></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating" className='bx bxs-star-half'></i>  
-                            </h4> 
-
-                            <p>PKR 6,999 
-                                <a href="/">
-                                    <i className='bx bx-cart sty' id="cart" 
-                                    >Add to cart</i> 
-                                </a> 
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <img src={img4} alt=""/>
-                        <div className="itemtext">
-                        </div>
-                        <div className="hearticon">
-                            <i className='bx bx-heart'></i>
-                        </div>
-                        
-                        <div className="details">
-                            <h4>Madhuri
-                                <i id="rating"className='bx bxs-star sty' 
-                                ></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating"className='bx bxs-star'></i>
-                                <i id="rating" className='bx bxs-star-half'></i>  
-                            </h4> 
-
-                            <p>PKR 5,999 
-                                <a href="/">
-                                    <i className='bx bx-cart sty' id="cart" 
-                                    >Add to cart</i> 
-                                </a> 
-                            </p>
-                        </div>
-                    </div> */}
-        
+   
                 </div>
             </section>
         </div>

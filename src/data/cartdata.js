@@ -14,12 +14,14 @@ export const products = [
         isOnSale: true,
         name: "Mastani",
         price: 4999,
+        quantity:1
     },
 
     {
         image: img2,
         name: "Deewani",
         price: 3999,
+        quantity:1
     },
 
     {
@@ -27,6 +29,7 @@ export const products = [
         isOnSale: true,
         name: "Rajkumari",
         price: 6999,
+        quantity:1
     },
 
     {
@@ -37,6 +40,7 @@ export const products = [
 
 
         price: 5999,
+        quantity:1
     },
 
     {
@@ -48,6 +52,7 @@ export const products = [
 
 
         price: 7999,
+        quantity:1
     },
 
 
@@ -61,6 +66,7 @@ export const products = [
 
 
         price: 9999,
+        quantity:1
     },
 
     {
@@ -73,6 +79,7 @@ export const products = [
 
 
         price: 10999,
+        quantity:1
     },
 
     {
@@ -85,6 +92,7 @@ export const products = [
 
 
         price: 9999,
+        quantity:1
     },
 
     {
@@ -97,6 +105,7 @@ export const products = [
 
 
         price: 4999,
+        quantity:5
 
     },
 
@@ -110,6 +119,7 @@ export const products = [
 
 
         price: 6999,
+        quantity:1
     },
 
     {
@@ -121,5 +131,6 @@ export const products = [
 
 
         price: 5999,
+        quantity:3
     }
 ]
