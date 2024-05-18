@@ -8,7 +8,7 @@ function Footer() {
                 <div class="containerr">
                     <div class="footer-content">
                         <h3>Contact Us</h3>
-                        <p><Link to="www.google.com">clothify@business.com</Link></p>
+                        <p><a href="mailto:l217517@lhr.nu.edu.pk">clothify@business.com</a></p>
                         <p><Link to="tel:+923210000000">+92 321 0000000</Link></p>
                         <p>Lahore, Pakistan</p>
                     </div>
