@@ -37,7 +37,7 @@ function SignInForm() {
         alert(`You are login with email: ${Email} and password: ${Password}`);
         dispatch(authActions.login(token));
         console.log(user)
-        history("/user");
+        history("/");
     } catch (err) {
       alert("Incorrect Email or Password");
       
