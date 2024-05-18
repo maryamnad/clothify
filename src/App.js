@@ -18,7 +18,7 @@ function App() {
     <Router>
       <div className='app'>
         <Routes>
-<<<<<<< Updated upstream
+{/* <<<<<<< Updated upstream */}
           <Route path="/Home" element={<Home />} />
           <Route path="/" element={<Home />} />
           <Route path="/About" element={<About />} />
@@ -37,7 +37,7 @@ function App() {
           )}
           {/* Redirect to login if accessing root UserProfile route without login */}
           {/* {!isLoggedIn && <Navigate to="/login" />} */}
-=======
+{/* ======= */}
         <Route path='/' element={<Login />}/>
             {isLoggedIn && <Route path='/user' element={<Home />} />}{" "} 
           
@@ -55,7 +55,7 @@ function App() {
           
           <Route exact path='/cart' element={<Cart/>}/>
 
->>>>>>> Stashed changes
+{/* >>>>>>> Stashed changes */}
           
         </Routes>
       </div>

@@ -36,8 +36,8 @@ const handleDelete = (index) => {
   return (
     <>
     <Navbar/>
-    <div className='mainheadCart'>Your Cart</div>
-    <div className="cart-card">
+    
+    <div className="cart-card"><div className='mainheadCart'>Your Cart</div>
             <div className="cart-main">
                 {
                 products.map((product,index)=>(
