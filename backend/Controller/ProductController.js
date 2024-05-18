@@ -2,20 +2,8 @@ const Product = require("../models/product");
 const multer = require('multer');
 const path = require('path');
 const axios = require('axios'); // Import axios for making HTTP requests
-const http = require('http');
-const https = require('https');
 const dotenv = require('dotenv');
 dotenv.config();
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'D:/Eesha/Semester 6/Web/Project/clothify/src/images'); // Set the destination to the directory where you want to save images
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  },
-});
-
-const upload = multer({ storage });
 
 const fs = require('fs');
 const newprod = async (req, res) => {
@@ -43,8 +31,6 @@ const newprod = async (req, res) => {
         console.error('Error saving image:', err);
         return res.status(500).json({ message: 'Error saving image', error: err });
       }
-
-      // File saved successfully, now save the product data to the database
       const { title, price, stock, category } = req.body;
 
       const prod = new Product({
@@ -52,7 +38,7 @@ const newprod = async (req, res) => {
         price,
         stock,
         category,
-        link: imagePath, // Save the path to the image in the database
+        link: imagePath,
       });
 
       await prod.save();

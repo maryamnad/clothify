@@ -131,6 +131,11 @@ function Inventory() {
             dataIndex: "_id"
           },
           {
+            title: "Image",
+            dataIndex: "link",
+            render: (image) => <Image src={image} width={50} />,
+          },
+          {
             title: "Title",
             dataIndex: "title",
           },
