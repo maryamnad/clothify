@@ -25,10 +25,10 @@ function Footer() {
                     <div class="footer-content">
                         <h3>Follow Us</h3>
                         <ul class="social-icons">
-                        <li><Link to=""><i class="fab fa-facebook"></i></Link></li>
-                        <li><Link to=""><i class="fab fa-twitter"></i></Link></li>
-                        <li><Link to=""><i class="fab fa-instagram"></i></Link></li>
-                        <li><Link to=""><i class="fab fa-linkedin"></i></Link></li>
+                        <li><Link to="https://www.facebook.com"><i class="fab fa-facebook"></i></Link></li>
+                        <li><Link to="https://www.x.com"><i class="fab fa-twitter"></i></Link></li>
+                        <li><Link to="https://www.instagram.com"><i class="fab fa-instagram"></i></Link></li>
+                        <li><Link to="https://www.linked.com"><i class="fab fa-linkedin"></i></Link></li>
                         </ul>
                         </div>
                 </div>
