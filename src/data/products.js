@@ -7,7 +7,6 @@ import b4 from '../images/b4.jpg';
 import b5 from '../images/b5.jpg';
 import img5 from '../images/img5.jpg'
 import img6 from '../images/img6.jpg'
-import img7 from '../images/img7.jpg'
 import img8 from '../images/img8.jpg'
 import img9 from '../images/img9.jpg'
 
