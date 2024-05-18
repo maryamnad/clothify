@@ -8,7 +8,7 @@ function Footer() {
                 <div class="containerr">
                     <div class="footer-content">
                         <h3>Contact Us</h3>
-                        <p><Link to="www.google.com">clothify@business.com</Link></p>
+                        <p><a href="mailto:l217517@lhr.nu.edu.pk">clothify@business.com</a></p>
                         <p><Link to="tel:+923210000000">+92 321 0000000</Link></p>
                         <p>Lahore, Pakistan</p>
                     </div>
@@ -25,10 +25,10 @@ function Footer() {
                     <div class="footer-content">
                         <h3>Follow Us</h3>
                         <ul class="social-icons">
-                        <li><Link to=""><i class="fab fa-facebook"></i></Link></li>
-                        <li><Link to=""><i class="fab fa-twitter"></i></Link></li>
-                        <li><Link to=""><i class="fab fa-instagram"></i></Link></li>
-                        <li><Link to=""><i class="fab fa-linkedin"></i></Link></li>
+                        <li><Link to="https://www.facebook.com"><i class="fab fa-facebook"></i></Link></li>
+                        <li><Link to="https://www.x.com"><i class="fab fa-twitter"></i></Link></li>
+                        <li><Link to="https://www.instagram.com"><i class="fab fa-instagram"></i></Link></li>
+                        <li><Link to="https://www.linked.com"><i class="fab fa-linkedin"></i></Link></li>
                         </ul>
                         </div>
                 </div>

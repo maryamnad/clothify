@@ -81,10 +81,6 @@ a:hover{
     background-color: var(--primary-color);
 }
 
-.social-icons i:hover{
-    color: var(--primary-color);
-}
-
 .bottom-bar{
     background: var(--primary-color);
     text-align: center;

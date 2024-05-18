@@ -1,8 +1,11 @@
-import { Button, Form, Input, Modal, Space, Table, Typography } from "antd";
+import { Button, Form, Input, Modal, Space, Table, Typography, Upload, Image, Avatar } from "antd";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { UploadOutlined } from '@ant-design/icons';
+
 
 function Inventory() {
+  const imageUrl = "file:///"
   const [loading, setLoading] = useState(false);
   const [dataSource, setDataSource] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -12,9 +15,10 @@ function Inventory() {
     title: "",
     price: "",
     stock: "",
-    category: ""
+    category: "",
+    image: null
   });
-  const [deleteProductId, setDeleteProductId] = useState(null); // New state to track product to be deleted
+  const [deleteProductId, setDeleteProductId] = useState(null);
 
   useEffect(() => {
     fetchInventory();
@@ -35,13 +39,13 @@ function Inventory() {
 
   const handleAddButtonClick = () => {
     setIsUpdating(false);
-    setFormData({ _id: "", title: "", price: "", stock: "", category: "" });
+    setFormData({ _id: "", title: "", price: "", stock: "", category: "" ,image: null});
     setModalVisible(true);
   };
 
   const handleCancel = () => {
     setModalVisible(false);
-    setDeleteProductId(null); // Reset deleteProductId when canceling
+    setDeleteProductId(null);
   };
 
   const handleFormChange = (changedValues, allValues) => {
@@ -49,8 +53,18 @@ function Inventory() {
   };
 
   const handleAddProduct = async (values) => {
+    console.log(values)
+    const form = new FormData();
+  form.append("title", values.title);
+  form.append("price", values.price);
+  form.append("stock", values.stock);
+  form.append("category", values.category);
+  console.log(values)
+
     try {
-      await axios.post("http://127.0.0.1:5000/api/newprod", values);
+      await axios.post("http://127.0.0.1:5000/api/newprod", values, {
+        
+      });
       console.log("Product added successfully");
       setModalVisible(false);
       fetchInventory();
@@ -60,8 +74,22 @@ function Inventory() {
   };
 
   const handleUpdateProduct = async (values) => {
+    const formData = new FormData();
+    formData.append("title", values.title);
+    formData.append("price", values.price);
+    formData.append("stock", values.stock);
+    formData.append("category", values.category);
+    if (values.image) {
+      formData.append("image", values.image[0].originFileObj);
+    }
+    console.log(values)
+
     try {
-      await axios.put(`http://127.0.0.1:5000/api/updateprod/${formData._id}`, values);
+      await axios.put(`http://127.0.0.1:5000/api/updateprod/${values._id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
       console.log("Product updated successfully");
       setModalVisible(false);
       fetchInventory();
@@ -78,7 +106,7 @@ function Inventory() {
     } catch (error) {
       console.error("Error deleting product:", error);
     }
-    setDeleteProductId(null); // Reset deleteProductId after deletion
+    setDeleteProductId(null);
     setModalVisible(false);
   };
 
@@ -148,11 +176,11 @@ function Inventory() {
           isUpdating={isUpdating}
         />
       </Modal>
-      <Modal // Confirmation modal
+      <Modal
         title="Confirm Deletion"
-        visible={!!deleteProductId} // Show modal only if deleteProductId is truthy
+        visible={!!deleteProductId}
         onOk={handleDeleteProduct}
-        onCancel={() => setDeleteProductId(null)} // Reset deleteProductId when canceling
+        onCancel={() => setDeleteProductId(null)}
         okText="Delete"
         cancelText="Cancel"
       >
@@ -182,14 +210,6 @@ const ProductForm = ({ onChange, onSubmit, formData, isUpdating }) => {
       onValuesChange={onChange}
     >
       <Form.Item
-        name="_id"
-        label="ID"
-        rules={[{ required: true, message: "Please enter the ID" }]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
         name="title"
         label="Title"
         rules={[{ required: true, message: "Please enter the title" }]}
@@ -216,6 +236,17 @@ const ProductForm = ({ onChange, onSubmit, formData, isUpdating }) => {
         rules={[{ required: true, message: "Please enter the category" }]}
       >
         <Input />
+      </Form.Item>
+      <Form.Item
+        name="image"
+        label="Image"
+        valuePropName="fileList"
+        getValueFromEvent={e => e && e.fileList}
+        rules={[{ required: !isUpdating, message: "Please upload an image" }]}
+      >
+        <Upload listType="picture" maxCount={1} beforeUpload={() => false}>
+          <Button icon={<UploadOutlined />}>Upload Image</Button>
+        </Upload>
       </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit">{isUpdating ? "Update Product" : "Add Product"}</Button>
