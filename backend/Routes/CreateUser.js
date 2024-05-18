@@ -26,7 +26,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { signup, login, verifyToken, getUser, refreshToken, logout, getcustomer  } = require("../Controller/UserController");
+const { signup, login, verifyToken, getUser, refreshToken, logout, getcustomer,updateuser  } = require("../Controller/UserController");
 const { newprod, getprod, updateprod,deleteprod } = require("../Controller/ProductController");
 
 router.get('/', (req,res,next) => {
@@ -37,6 +37,7 @@ router.post("/login", login);
 router.get("/user", verifyToken, getUser);
 router.get("/refresh", refreshToken, verifyToken, getUser);
 router.post("/logout", verifyToken, logout);
+router.put("/user/update",verifyToken, updateuser)
 router.post("/newprod", newprod);
 router.get("/getprod", getprod);
 router.get("/getcustomer",getcustomer)

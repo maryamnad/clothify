@@ -69,36 +69,27 @@ const login = async (req, res) => {
     }
   };
 
-const verifyToken = (req,res,next) => {
-    // const cookies = req.headers.cookie;
-    // const token = cookies.split('=')[1];
-    // console.log(token);
-    // const headers = req.headers['authorization'];
-    // const token = headers.split(" ")[1];
-    
-    const cookies = req.cookie;
-    
-    // Check if cookies exist
-    if (!cookies) {
-        return res.status(404).json({ message: "Cookies not found" });
+  const verifyToken = (req, res, next) => {
+    // Extract the token from the Authorization header
+    const authHeader = req.headers['authorization'];
+    if (!authHeader) {
+      return res.status(401).json({ message: "Authorization header missing" });
     }
-    // Split the cookies string to extract the token
-    const token = cookies.split('=')[1];
+  
+    const token = authHeader.split(' ')[1];
     if (!token) {
-        return res.status(404).json({ message: "Token not found" });
+      return res.status(401).json({ message: "Token not found" });
     }
-    if (!token){
-        return res.status(404).json({message: "Token not found"});
-    }
-    jwt.verify(String(token), JWT_SECRET_KEY, (err,user) => {
-        if (err){
-            return res.status(400).json({message: "Invalid Token"})
-        }
-        console.log(user.id);
-        req.id = user.id;
+  
+    // Verify the token
+    jwt.verify(token, JWT_SECRET_KEY, (err, user) => {
+      if (err) {
+        return res.status(403).json({ message: "Invalid token" });
+      }
+      req.id = user.id; // Attach the user ID to the request object
+      next(); // Proceed to the next middleware or route handler
     });
-    next();
-};
+  };
 
 const getUser = async(req, res, next) => {
     const userId = req.id;
@@ -172,6 +163,34 @@ const getcustomer= async (req, res) => {
     }
   };
 
+  const updateuser = async (req, res) => {
+    const userId = req.id;
+    const { name, phone, email, postal, address, city } = req.body;
+  
+    try {
+      // Find the user by ID
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      // Update user fields
+      user.Name = name || user.Name;
+      user.Phone = phone || user.Phone;
+      user.Email = email || user.Email;
+      user.PostalCode = postal || user.PostalCode;
+      user.Address = address || user.Address;
+      user.City = city || user.City;
+  
+      // Save updated user
+      const updatedUser = await user.save();
+      return res.status(200).json({ message: "User updated successfully", user: updatedUser });
+    } catch (error) {
+      return res.status(500).json({ message: "Server error", error: error.message });
+    }
+  };
+  
+
 exports.logout = logout;
 exports.signup = signup;
 exports.login = login;
@@ -179,3 +198,4 @@ exports.verifyToken = verifyToken;
 exports.getUser = getUser;
 exports.refreshToken = refreshToken;
 exports.getcustomer = getcustomer;
+exports.updateuser=updateuser
