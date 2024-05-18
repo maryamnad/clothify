@@ -2,6 +2,7 @@ const express = require('express');
 const productrouter = express.Router();
 const Product = require('../models/product');
 
+
 productrouter.post("/api/Createproduct", async (req, res) => {
     try {
         const productData = req.body; // Assuming product data is sent in the request body

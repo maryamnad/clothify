@@ -4,7 +4,8 @@ const ProductSchema = new mongoose.Schema({
     title: String,
     price: Number,
     stock: Number,
-    category: String
+    category: String,
+    link: String
   }, { collection: 'Product' }); // Specify the collection name as 'teams'
   
   // Create a Mongoose model for the 'teams' collection

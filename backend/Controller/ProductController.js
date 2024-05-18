@@ -1,21 +1,71 @@
 const Product = require("../models/product");
+const multer = require('multer');
+const path = require('path');
+const axios = require('axios'); // Import axios for making HTTP requests
+const http = require('http');
+const https = require('https');
+const dotenv = require('dotenv');
+dotenv.config();
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'D:/Eesha/Semester 6/Web/Project/clothify/src/images'); // Set the destination to the directory where you want to save images
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
 
+const upload = multer({ storage });
 
-const newprod = async (req,res) => {
-    console.log(req.body)
-    const prod = new Product({
-        title: req.body.title,
-        price: req.body.price,
-        stock: req.body.stock,
-        category: req.body.category
-    });
-    try {
-    
-        await prod.save();
-    } catch (err) {
-        console.log(err);
+const fs = require('fs');
+const newprod = async (req, res) => {
+  try {
+    // Extract the image object from the request body
+    const image = req.body.image;
+
+    // Check if the image object exists
+    if (!image) {
+      return res.status(400).json({ message: 'Image object not found in request body' });
     }
-}
+
+    // Extract necessary information from the image object
+    const imageUrl = image[0].thumbUrl; // Assuming `originFileObj` contains the image data
+    const imageName = image[0].name;
+
+    // Create a path to save the image
+    const imagePath = path.join('D:/Eesha/Semester 6/Web/Project/clothify/src/images', imageName);
+    const response = await axios.get(imageUrl, { responseType: 'arraybuffer' });
+    const imageData = Buffer.from(response.data, 'base64');
+
+    console.log(imageData)
+    fs.writeFile(imagePath, imageData, async function(err) {
+      if (err) {
+        console.error('Error saving image:', err);
+        return res.status(500).json({ message: 'Error saving image', error: err });
+      }
+
+      // File saved successfully, now save the product data to the database
+      const { title, price, stock, category } = req.body;
+
+      const prod = new Product({
+        title,
+        price,
+        stock,
+        category,
+        link: imagePath, // Save the path to the image in the database
+      });
+
+      await prod.save();
+
+      res.status(200).json({ message: 'Product added successfully', product: prod });
+    });
+  } catch (error) {
+    console.error('Error adding product:', error);
+    res.status(500).json({ message: 'Internal server error', error: error });
+  }
+};
+
+
 
 const getprod= async (req, res) => {
     try {
