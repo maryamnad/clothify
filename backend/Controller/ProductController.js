@@ -48,17 +48,11 @@ const getprod= async (req, res) => {
 
   const deleteprod=async (req, res) => {
     try {
-      // Extract the product ID from the request parameters
       const productId = req.params._id;
-  
-      // Use the Product model or MongoDB driver to remove the product by ID
-      // Example using Mongoose
       const deletedProduct = await Product.findByIdAndDelete(productId);
-  
       if (!deletedProduct) {
         return res.status(404).json({ message: "Product not found" });
       }
-  
       res.status(200).json({ message: "Product deleted successfully", deletedProduct });
     } catch (error) {
       console.error("Error deleting product:", error);

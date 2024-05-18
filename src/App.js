@@ -36,6 +36,7 @@ function App() {
           )}
           {/* Redirect to login if accessing root UserProfile route without login */}
           {/* {!isLoggedIn && <Navigate to="/login" />} */}
+          
         </Routes>
       </div>
     </Router>
