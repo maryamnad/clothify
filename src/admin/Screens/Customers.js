@@ -2,6 +2,9 @@ import { Avatar, Rate, Space, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { getCustomers, getInventory } from "../API";
 import axios from "axios";
+import Header from "../Components/Header";
+import SideMenu from "../Components/SideMenu";
+import Footer from "../Components/Footer";
 
 function Customers() {
   const [loading, setLoading] = useState(false);
@@ -18,7 +21,11 @@ function Customers() {
   }, []);
 
   return (
-    <Space size={20} direction="vertical">
+    <div className="App">
+      <Header />
+      <div className="SideMenuAndPageContent">
+        <SideMenu></SideMenu>
+        <Space size={20} direction="vertical">
       <Typography.Title level={4}>Customers</Typography.Title>
       <Table
         loading={loading}
@@ -55,6 +62,10 @@ function Customers() {
         }}
       ></Table>
     </Space>
+      </div>
+      <Footer />
+    </div>
+    
   );
 }
 export default Customers;

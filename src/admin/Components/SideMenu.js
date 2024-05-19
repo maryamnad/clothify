@@ -32,21 +32,21 @@ import {
             {
               label: "Dashbaord",
               icon: <AppstoreOutlined />,
-              key: "/",
+              key: "/admin/",
             },
             {
               label: "Inventory",
-              key: "/inventory",
+              key: "/admin/inventory",
               icon: <ShopOutlined />,
             },
             {
               label: "Orders",
-              key: "/orders",
+              key: "/admin/orders",
               icon: <ShoppingCartOutlined />,
             },
             {
               label: "Customers",
-              key: "/customers",
+              key: "/admin/customers",
               icon: <UserOutlined />,
             },
           ]}

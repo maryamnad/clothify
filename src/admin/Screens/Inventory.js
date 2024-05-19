@@ -2,6 +2,9 @@ import { Button, Form, Input, Modal, Space, Table, Typography, Upload, Image, Av
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { UploadOutlined } from '@ant-design/icons';
+import Header from "../Components/Header";
+import SideMenu from "../Components/SideMenu";
+import Footer from "../Components/Footer";
 
 
 function Inventory() {
@@ -115,7 +118,11 @@ function Inventory() {
   };
 
   return (
-    <Space size={20} direction="vertical">
+    <div className="App">
+      <Header />
+      <div className="SideMenuAndPageContent">
+        <SideMenu></SideMenu>
+        <Space size={20} direction="vertical">
       <div style={{ display: "flex", alignItems: "center" }}>
         <Typography.Title level={4} style={{ margin: 0 }}>Inventory</Typography.Title>
         <Button type="primary" style={{ marginLeft: 10 }} onClick={handleAddButtonClick}>Add</Button>
@@ -194,6 +201,10 @@ function Inventory() {
         <p>Are you sure you want to delete this product?</p>
       </Modal>
     </Space>
+      </div>
+      <Footer />
+    </div>
+    
   );
 }
 

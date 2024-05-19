@@ -1,6 +1,9 @@
 import { Avatar, Rate, Space, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { getInventory, getOrders } from "../API";
+import Header from "../Components/Header";
+import SideMenu from "../Components/SideMenu";
+import Footer from "../Components/Footer";
 
 function Orders() {
   const [loading, setLoading] = useState(false);
@@ -15,7 +18,11 @@ function Orders() {
   }, []);
 
   return (
-    <Space size={20} direction="vertical">
+    <div className="App">
+      <Header />
+      <div className="SideMenuAndPageContent">
+        <SideMenu></SideMenu>
+        <Space size={20} direction="vertical">
       <Typography.Title level={4}>Orders</Typography.Title>
       <Table
         loading={loading}
@@ -49,6 +56,10 @@ function Orders() {
         }}
       ></Table>
     </Space>
+      </div>
+      <Footer />
+    </div>
+    
   );
 }
 export default Orders;

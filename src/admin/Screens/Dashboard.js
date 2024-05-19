@@ -8,6 +8,9 @@ import {
   import { useEffect, useState } from "react";
   import { getCustomers, getInventory, getOrders, getRevenue } from "../API";
   import axios from "axios";
+  import Header from "../Components/Header";
+  import SideMenu from "../Components/SideMenu";
+  import Footer from "../Components/Footer";
   
   import {
     Chart as ChartJS,
@@ -57,7 +60,11 @@ import {
     }, []);
   
     return (
-      <Space size={20} direction="vertical">
+      <div className="App">
+      <Header/>
+      <div className="SideMenuAndPageContent">
+        <SideMenu></SideMenu>
+        <Space size={20} direction="vertical">
         <Typography.Title level={4}>Dashboard</Typography.Title>
         <Space direction="horizontal">
           <DashboardCard
@@ -126,6 +133,10 @@ import {
           <DashboardChart />
         </Space>
       </Space>
+      </div>
+      <Footer />
+    </div>
+      
     );
   }
   

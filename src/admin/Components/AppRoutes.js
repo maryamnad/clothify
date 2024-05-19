@@ -7,10 +7,10 @@ import Orders from "../Screens/Orders";
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Dashboard />}></Route>
-      <Route path="/inventory" element={<Inventory />}></Route>
-      <Route path="/orders" element={<Orders />}></Route>
-      <Route path="/customers" element={<Customers />}></Route>
+      <Route path="/admin/" element={<Dashboard />}></Route>
+      <Route path="/admin/inventory" element={<Inventory />}></Route>
+      <Route path="/admin/orders" element={<Orders />}></Route>
+      <Route path="/admin/customers" element={<Customers />}></Route>
     </Routes>
   );
 }
