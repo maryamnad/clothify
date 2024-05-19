@@ -11,6 +11,7 @@
   align-items: center;
   padding: 4px 20px 4px 12px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  margin-top: 16px;
 }
 .AppFooter{
 height: 50px;
