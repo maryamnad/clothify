@@ -15,16 +15,14 @@ import img7 from '../images/img7.jpg'
 import img8 from '../images/img8.jpg'
 import img9 from '../images/img9.jpg'
 import temp from '../images/temp.jpg'
-// import { products } from '../data/products';
 import React, { useState, useEffect } from "react";
 import { useSelector } from 'react-redux';
-
-    
-
 export default function Home() {
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [products, setproducts] = useState([]);
+    const [user,setuser]=useState([])
+    const token = useSelector((state) => state.auth.token);
 
     useEffect(() => {
 
@@ -32,6 +30,26 @@ export default function Home() {
         .then((res) => {
             setproducts(res.data);
         })
+
+        const fetchUserData = async () => {
+            try {
+              if (!token) {
+                throw new Error('No token found');
+              }
+              
+              const response = await axios.get('http://127.0.0.1:5000/api/user', {
+                headers: {
+                  'Authorization': `Bearer ${token}`
+                }
+              });
+              setuser(response.data.user);
+
+            } catch (error) {
+              console.error('Error fetching user data:', error);
+            }
+        }
+
+        fetchUserData();
         
 
         
@@ -43,91 +61,38 @@ export default function Home() {
     const[show,setShow]=useState(true);
     const[warning,setWarning]=useState(false);
 
-    const [cart, setCart] = useState(() => {
-        // Retrieve initial cart state from localStorage, if available
-        const savedCart = localStorage.getItem('cart');
-        return savedCart ? JSON.parse(savedCart) : [];
-    });
-
-    // Add to cart function
-    const addtocart = (item) => {
-        // console.log(cart.length);
-        // console.log("here");
-        // console.log(item);
-
-        // // Check if the item is already in the cart
-        // let isPresent = cart.some(product => product.image === item.image);
-        
-        // if (!isPresent) {
-        //     const newCart = [...cart, item];
-        //     setCart(newCart);
-        //     // Update the cart in localStorage
-        //     localStorage.setItem('cart', JSON.stringify(newCart));
-        // }
-        // else{
-        //     setWarning(true);
-        //     setTimeout(()=>
-        //         setWarning(false),2000
-        //     )
-        //     return;
-        // }
+    const [cart, setCart] = useState({})
+    const addtocart =async (item) => {
         if (!isLoggedIn)
         {
             alert("Please login first")
             return
         }
+        console.log("Item: ",item)
+        const cartItem = {
+            title: item.title,
+            price: item.price,
+            stock: item.stock,
+            category: item.category,
+            sale: item.sale,
+            onsale: item.onsale,
+            link: item.link,
+            userid: user._id
+        };
+        console.log("Cart: ", cartItem)
+        try {
+            await axios.post("http://127.0.0.1:5000/api/newcart", cartItem, {
+              
+            });
+            
+            alert("Product added successfully");
+          } catch (error) {
+            console.error("Error adding product:", error);
+          }
+        
+
 
     };
-    // const [cart,setCart]=useState([])
-
-    // const addtocart=(item)=>{
-    //     //  let cart=localStorage.getItem('cart');
-    //     // console.log(cart.length);
-    //     // console.log("here")
-    //     // console.log(item)
-
-    //     // let isPresent=false;
-    //     // cart.array.forEach((product) => {
-    //     //     if(item.image===product.image)
-    //     //         isPresent=true;
-            
-    //     // })
-    //     // if(!isPresent)
-    //     //     return;
-    //     // setCart([...cart,item]);
-    //     let cart = localStorage.getItem('cart');
-    
-    //     // Initialize cart as an empty array if it's not found in localStorage
-    //     if (!cart) {
-    //         cart = [];
-    //     } else {
-    //         cart = JSON.parse(cart);
-    //     }
-    //     console.log(cart.length);
-    //     console.log("here");
-    //     console.log(item);
-    
-    //     // Check if the item is already in the cart
-    //     let isPresent = false;
-    //     cart.forEach((product) => {
-    //         if (item.image === product.image) {
-    //             isPresent = true;
-    //         }
-    //     });
-    
-    //     if (!isPresent) {
-    //         cart.push(item);
-    //     }
-    
-    //     // Update the cart in localStorage
-    //     localStorage.setItem('cart', JSON.stringify(cart));
-    // };
-  
-    
-
-
-  
-    
   return (
     <>
         <Navbar/>
@@ -178,7 +143,6 @@ export default function Home() {
                                 <i id="rating"className='bx bxs-star'></i>
                                 <i id="rating"className='bx bxs-star'></i>
                             </h4> 
-{/* onClick={addtocart(product) */}
                             <div><span className='product-price'>{product.price} </span>
                                 <button className="add-to-cart-btn" href="/" onClick={()=>addtocart(product)}>
                                     <span className='bx bx-cart' id="cart" 
@@ -188,11 +152,6 @@ export default function Home() {
                         </div>
                     </div>
                     ))}
-                    {
-                        warning && <div className='warning'> Item is already added to cart</div>
-                    }
-
-   
                 </div>
             </section>
         </div>
