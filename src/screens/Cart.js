@@ -18,7 +18,12 @@ const [user,setuser]=useState([])
 
 useEffect(() => {
   fetchCartItems();
+  
 }, [token]);
+
+useEffect(() => {
+  calculateTotalPrice();
+}, [products]);
 
 const fetchCartItems = async () => {
   try {
@@ -37,6 +42,14 @@ const fetchCartItems = async () => {
   } catch (error) {
       console.error('Error fetching cart items:', error);
   }
+};
+
+const calculateTotalPrice = () => {
+  let totalPrice = 0;
+  products.forEach((product) => {
+    totalPrice += product.price * product.stock; // Assuming product price is stored in `price` field
+  });
+  setTotalPrice(totalPrice);
 };
 
 const deleteCartItem = async (product) => {
