@@ -1,6 +1,7 @@
 const mongoose=require('mongoose')
 
 const CartSchema = new mongoose.Schema({
+    clothid: String,
     title: String,
     price: Number,
     stock: Number,

@@ -41,7 +41,7 @@ const newprod = async (req, res) => {
       const prod = new Product({
         title,
         price,
-        stock,
+        stock: 1,
         category,
         sale,
         onsale,

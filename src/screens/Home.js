@@ -18,10 +18,11 @@ import temp from '../images/temp.jpg'
 import React, { useState, useEffect } from "react";
 import { useSelector } from 'react-redux';
 export default function Home() {
-    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+    
     const [currentSlide, setCurrentSlide] = useState(0);
     const [products, setproducts] = useState([]);
     const [user,setuser]=useState([])
+    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     const token = useSelector((state) => state.auth.token);
 
     useEffect(() => {
