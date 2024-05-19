@@ -51,5 +51,67 @@ const getcart = async (req, res) => {
     }
 };
 
-exports.newcart=newcart;
-exports.getcart=getcart;
+const deleteCart = async (req, res) => {
+    try {
+        const productId = req.params._id;
+        console.log(productId)
+
+        const cartItem = await Cart.findByIdAndDelete(productId)
+
+        res.status(200).json({ message: 'Product removed from cart successfully' });
+    } catch (error) {
+        console.error('Error removing product from cart:', error);
+        res.status(500).json({ message: 'Internal server error', error: error });
+    }
+};
+
+const increaseCartQuantity = async (req, res) => {
+    try {
+        const productId = req.params._id;
+        console.log(productId)
+
+        const cartItem = await Cart.findById(productId)
+
+        if (cartItem) {
+            cartItem.stock += 1;
+            await cartItem.save();
+            res.status(200).json({ message: 'Product quantity increased successfully', Cart: cartItem });
+        } else {
+            res.status(404).json({ message: 'Product not found in cart' });
+        }
+    } catch (error) {
+        console.error('Error increasing product quantity:', error);
+        res.status(500).json({ message: 'Internal server error', error: error });
+    }
+};
+
+const decreaseCartQuantity = async (req, res) => {
+    try {
+        const productId = req.params._id;
+        console.log(productId)
+
+        const cartItem = await Cart.findById(productId)
+
+        if (cartItem) {
+            if (cartItem.stock > 1) {
+                cartItem.stock -= 1;
+                await cartItem.save();
+                res.status(200).json({ message: 'Product quantity decreased successfully', Cart: cartItem });
+            } else {
+                await cartItem.remove();
+                res.status(200).json({ message: 'Product removed from cart as quantity is zero', Cart: cartItem });
+            }
+        } else {
+            res.status(404).json({ message: 'Product not found in cart' });
+        }
+    } catch (error) {
+        console.error('Error decreasing product quantity:', error);
+        res.status(500).json({ message: 'Internal server error', error: error });
+    }
+};
+
+exports.newcart = newcart;
+exports.getcart = getcart;
+exports.deleteCart = deleteCart;
+exports.increaseCartQuantity = increaseCartQuantity;
+exports.decreaseCartQuantity = decreaseCartQuantity;

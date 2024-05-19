@@ -17,45 +17,77 @@ const [user,setuser]=useState([])
 
 
 useEffect(() => {
-  const fetchCartItems = async () => {
-      try {
-          if (!token) {
-              throw new Error('No token found');
-          }
-          const response = await axios.get(`http://127.0.0.1:5000/api/user/getcart`, {
-              headers: {
-                  'Authorization': `Bearer ${token}`
-              }
-          });
-
-          setProducts(response.data);
-          console.log(products)
-        
-      } catch (error) {
-          console.error('Error fetching cart items:', error);
-      }
-  };
-
   fetchCartItems();
 }, [token]);
 
+const fetchCartItems = async () => {
+  try {
+      if (!token) {
+          throw new Error('No token found');
+      }
+      const response = await axios.get(`http://127.0.0.1:5000/api/user/getcart`, {
+          headers: {
+              'Authorization': `Bearer ${token}`
+          }
+      });
 
-const handleAdd = (index) => {
-  const newProducts = [...products];
-  newProducts[index].quantity += 1;
-  setProducts(newProducts);
-};
-const handleRemove = (index) => {
-  const newProducts = [...products];
-  if (newProducts[index].quantity > 1) {
-    newProducts[index].quantity -= 1;
-    setProducts(newProducts);
+      setProducts(response.data);
+      console.log(products)
+    
+  } catch (error) {
+      console.error('Error fetching cart items:', error);
   }
 };
 
-const handleDelete = (index) => {
-  const newProducts = products.filter((_, i) => i !== index);
-  setProducts(newProducts);
+const deleteCartItem = async (product) => {
+  try {
+      const response = await axios.delete(`http://127.0.0.1:5000/api/deletecart/${product._id}`, {
+      });
+      console.log(response.data.message);
+  } catch (error) {
+      console.error('Error deleting from cart:', error);
+  }
+};
+
+const increaseCartItemQuantity = async (product) => {
+  console.log(product)
+  console.log(product._id)
+  // console.log(id)
+  try {
+      const response = await axios.put(`http://127.0.0.1:5000/api/increasecart/${product._id}`, product, {
+      });
+      console.log(response.data.message);
+  } catch (error) {
+      console.error('Error increasing cart item quantity:', error);
+  }
+};
+
+// Decrease cart item quantity
+const decreaseCartItemQuantity = async (product) => {
+  try {
+      const response = await axios.put(`http://127.0.0.1:5000/api/decreasecart/${product._id}`, product, {
+      });
+      console.log(response.data.message);
+  } catch (error) {
+      console.error('Error decreasing cart item quantity:', error);
+  }
+};
+
+
+const handleAdd = (product) => {
+  console.log(product)
+  increaseCartItemQuantity(product)
+  fetchCartItems();
+  
+};
+const handleRemove = (product) => {
+  decreaseCartItemQuantity(product)
+  fetchCartItems();
+};
+
+const handleDelete = (product) => {
+  deleteCartItem(product);
+  fetchCartItems();
 };
   return (
     <>
@@ -73,14 +105,14 @@ const handleDelete = (index) => {
                       <p>{product.title}</p>
                     </div>
                     <div>
-                    <button onClick={() => handleAdd(index)}>+</button>
+                    <button onClick={() => handleAdd(product)}>+</button>
                     <span>{product.stock}</span>
-                    <button onClick={() => handleRemove(index)}>-</button>
+                    <button onClick={() => handleRemove(product)}>-</button>
                       </div>
                     <div>
                       <span>{product.price}</span>
             
-                    <button onClick={()=>handleDelete(index)}>Remove</button>
+                    <button onClick={()=>handleDelete(product)}>Remove</button>
                     </div>
                   </div>
                   
