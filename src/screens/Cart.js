@@ -119,7 +119,7 @@ const handleDelete = (product) => {
 
                 ))}
                 <div className='total'><span>Total Price of your cart </span><span>Rs-{totalPrice}</span></div>
-                
+                <button className='checkout'>Checkout</button>
             </div>
     </div>
 

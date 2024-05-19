@@ -94,8 +94,8 @@ app.use(express.json());
 app.use("/api", router);
 mongoose.connect("mongodb://localhost:27017/Clothify")
     .then(()=> {
-    app.listen(5000);
-    console.log("Listening to the port 5000")
+        app.listen(5000);
+        console.log("Listening to the port 5000")
     })
     .catch((err) => console.log(err));
 
