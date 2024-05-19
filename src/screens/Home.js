@@ -1,5 +1,6 @@
 
 import Navbar from '../components/Navbar'
+import axios from 'axios'
 
 import Navbar2 from '../components/Navbar'
 import Footer from '../components/footer';
@@ -13,13 +14,28 @@ import img6 from '../images/img6.jpg'
 import img7 from '../images/img7.jpg'
 import img8 from '../images/img8.jpg'
 import img9 from '../images/img9.jpg'
-import { products } from '../data/products';
+import temp from '../images/temp.jpg'
+// import { products } from '../data/products';
 import React, { useState, useEffect } from "react";
+import { useSelector } from 'react-redux';
 
     
 
 export default function Home() {
+    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [products, setproducts] = useState([]);
+
+    useEffect(() => {
+
+        axios.get("http://127.0.0.1:5000/api/getprod")
+        .then((res) => {
+            setproducts(res.data);
+        })
+        
+
+        
+    }, []);
 
     const changeSlide = (step) => {
         setCurrentSlide(currentSlide + step);
@@ -35,26 +51,32 @@ export default function Home() {
 
     // Add to cart function
     const addtocart = (item) => {
-        console.log(cart.length);
-        console.log("here");
-        console.log(item);
+        // console.log(cart.length);
+        // console.log("here");
+        // console.log(item);
 
-        // Check if the item is already in the cart
-        let isPresent = cart.some(product => product.image === item.image);
+        // // Check if the item is already in the cart
+        // let isPresent = cart.some(product => product.image === item.image);
         
-        if (!isPresent) {
-            const newCart = [...cart, item];
-            setCart(newCart);
-            // Update the cart in localStorage
-            localStorage.setItem('cart', JSON.stringify(newCart));
+        // if (!isPresent) {
+        //     const newCart = [...cart, item];
+        //     setCart(newCart);
+        //     // Update the cart in localStorage
+        //     localStorage.setItem('cart', JSON.stringify(newCart));
+        // }
+        // else{
+        //     setWarning(true);
+        //     setTimeout(()=>
+        //         setWarning(false),2000
+        //     )
+        //     return;
+        // }
+        if (!isLoggedIn)
+        {
+            alert("Please login first")
+            return
         }
-        else{
-            setWarning(true);
-            setTimeout(()=>
-                setWarning(false),2000
-            )
-            return;
-        }
+
     };
     // const [cart,setCart]=useState([])
 
@@ -139,16 +161,16 @@ export default function Home() {
 
                     {products.map(product=>(
                         <div className="row">
-                        <img src={product.image} alt=""/>
+                        <img src={ require(`./../images/${product.link}`)} alt=""/>
                         <div className="itemtext">
-                            {product.isOnSale||(<h5>Sale</h5>)}
+                            {product.onsale||(<h5>{product.sale}%</h5>)}
                         </div>
                         <div className="hearticon">
                             <i className='bx bx-heart'></i>
                         </div>
                 
                         <div className="details">
-                            <h4>{product.name}
+                            <h4>{product.title}
                                 <i id="rating"className='bx bxs-star sty' 
                                 ></i>
                                 <i id="rating"className='bx bxs-star'></i>

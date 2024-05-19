@@ -13,9 +13,10 @@ function Inventory() {
   const [formData, setFormData] = useState({
     _id: "",
     title: "",
-    price: "",
+    price: 0,
     stock: "",
     category: "",
+    sale:0,
     image: null
   });
   const [deleteProductId, setDeleteProductId] = useState(null);
@@ -39,7 +40,7 @@ function Inventory() {
 
   const handleAddButtonClick = () => {
     setIsUpdating(false);
-    setFormData({ _id: "", title: "", price: "", stock: "", category: "" ,image: null});
+    setFormData({ _id: "", title: "", price: 0, stock: "", category: "" ,sale: 0,image: null});
     setModalVisible(true);
   };
 
@@ -74,21 +75,18 @@ function Inventory() {
   };
 
   const handleUpdateProduct = async (values) => {
-    const formData = new FormData();
-    formData.append("title", values.title);
-    formData.append("price", values.price);
-    formData.append("stock", values.stock);
-    formData.append("category", values.category);
-    if (values.image) {
-      formData.append("image", values.image[0].originFileObj);
-    }
-    console.log(values)
+    // const formData = new FormData();
+    // formData.append("title", values.title);
+    // formData.append("price", values.price);
+    // formData.append("stock", values.stock);
+    // formData.append("category", values.category);
+    // if (values.image) {
+    //   formData.append("image", values.image[0].originFileObj);
+    // }
+    // console.log(values)
 
     try {
-      await axios.put(`http://127.0.0.1:5000/api/updateprod/${values._id}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+      await axios.put(`http://127.0.0.1:5000/api/updateprod/${values._id}`, values, {
       });
       console.log("Product updated successfully");
       setModalVisible(false);
@@ -146,6 +144,15 @@ function Inventory() {
           {
             title: "Category",
             dataIndex: "category",
+          },
+          {
+            title: "Sale",
+            dataIndex: "sale",
+          },
+          {
+            title: "Image",
+            dataIndex: "link",
+            render: (link) => <Image src={require(`./../../images/${link}`)} width={50} />,
           },
           {
             title: "Action",
@@ -234,6 +241,13 @@ const ProductForm = ({ onChange, onSubmit, formData, isUpdating }) => {
         name="category"
         label="Category"
         rules={[{ required: true, message: "Please enter the category" }]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        name="sale"
+        label="sale"
+        rules={[{ required: true, message: "Please enter the discount" }]}
       >
         <Input />
       </Form.Item>

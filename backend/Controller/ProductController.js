@@ -31,13 +31,20 @@ const newprod = async (req, res) => {
         console.error('Error saving image:', err);
         return res.status(500).json({ message: 'Error saving image', error: err });
       }
-      const { title, price, stock, category } = req.body;
+      const { title, price, stock, category,sale } = req.body;
+      var onsale=false
+      if (sale!=0)
+      {
+        onsale=true
+      }
 
       const prod = new Product({
         title,
         price,
         stock,
         category,
+        sale,
+        onsale,
         link: imageName,
       });
 

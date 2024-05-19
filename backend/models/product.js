@@ -5,6 +5,8 @@ const ProductSchema = new mongoose.Schema({
     price: Number,
     stock: Number,
     category: String,
+    sale: Number,
+    onsale: Boolean,
     link: String
   }, { collection: 'Product' }); // Specify the collection name as 'teams'
   
