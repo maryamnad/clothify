@@ -6,7 +6,7 @@ const LegalNotice=()=>{
     return(
 
         <div className='legalnotice'>
-            <div className='mainhead1'>Legal Notice</div>
+            <h1 className='mainhead1'>Legal Notice</h1>
 
             <div className='legalnoticein'>
                 <h2>1.Terms and Conditions</h2>

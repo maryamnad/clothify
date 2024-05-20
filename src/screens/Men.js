@@ -5,15 +5,7 @@ import Footer from '../components/footer';
 import './style.css'
 import './Men.css'
 import { products } from '../data/mendata';
-import b1 from '../images/b1.jpeg'
-import b2 from '../images/b2.jpg'
-import b3 from '../images/b3.jpg'
-import b4 from '../images/b4.jpg'
-import b5 from '../images/b5.jpg'
-import b6 from '../images/b6.jpg'
-import b7 from '../images/b7.jpg'
-import b8 from '../images/b8.jpg'
-import b9 from '../images/b9.jpg'
+
 
 
 
@@ -52,7 +44,7 @@ export default function Men() {
                                 <i id="rating"className='bx bxs-star'></i>
                                 <i id="rating"className='bx bxs-star'></i>
                             </h4> 
-{/* onClick={addtocart(product) */}
+
                             <div><span className='product-price'>{product.price} </span>
                                 <button className="add-to-cart-btn" href="/" >
                                     <span className='bx bx-cart' id="cart" 

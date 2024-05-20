@@ -32,6 +32,8 @@ const { newprod, getprod, updateprod,deleteprod } = require("../Controller/Produ
 const {newcart,getcart,deleteCart,increaseCartQuantity,decreaseCartQuantity} =require("../Controller/CartController")
 const {neworder}=require("./../Controller/OderContoller")
 
+
+
 router.get('/', (req,res,next) => {
     res.send("hello!!");
 })

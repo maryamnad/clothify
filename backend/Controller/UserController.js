@@ -9,7 +9,7 @@ const signup = async (req,res) => {
     console.log(req.body)
     let existingUser;
     try {
-        existingUser = await User.findOne({Email: Email});
+        existingUser = await User.findOne({Email});
     } catch (err) {
         console.log(err);
     }
@@ -37,7 +37,7 @@ const login = async (req, res) => {
     try {
       // Check if user with provided email exists
       const existingUser = await User.findOne({ Email });
-  
+      
       if (!existingUser) {
         return res.status(400).json({ message: 'User not found, Please sign up.' });
       }
@@ -62,7 +62,7 @@ const login = async (req, res) => {
       });
   
       // Return success message along with user data and token
-      res.json({ message: 'Successfully Logged In', user: existingUser, token });
+      res.status(200).json({ message: 'Successfully Logged In', user: existingUser, token });
     } catch (error) {
       console.error('Error during login:', error);
       res.status(500).json({ message: 'Internal server error' });
@@ -230,3 +230,4 @@ exports.refreshToken = refreshToken;
 exports.getcustomer = getcustomer;
 exports.updateuser=updateuser
 exports.changePassword=changePassword
+

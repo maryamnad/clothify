@@ -69,7 +69,7 @@ const increaseCartItemQuantity = async (product) => {
   console.log(product._id)
   // console.log(id)
   try {
-      const response = await axios.put(`http://127.0.0.1:5000/api/increasecart/${product._id}`, product, {
+      const response = await axios.put(`http://127.0.0.1:5000/api/increasecart/${product._id}`, {
       });
       console.log(response.data.message);
   } catch (error) {
@@ -101,7 +101,7 @@ const handleRemove = (product) => {
 };
 
 const handleDelete = (product) => {
-  deleteCartItem(product);
+  deleteCartItem( product);
   fetchCartItems();
 };
 
@@ -139,7 +139,7 @@ const handleCheckout = () => {
 
                 ))}
                 <div className='total'><span>Total Price of your cart </span><span>Rs-{totalPrice}</span></div>
-                
+                <button className='checkout'>Checkout</button>
             </div>
             <button className="checkout-button" onClick={handleCheckout}>
             Checkout
