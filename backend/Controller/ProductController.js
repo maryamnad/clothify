@@ -87,7 +87,7 @@ const getprod= async (req, res) => {
   } catch (error) {
     res.status(500).json({ success: false, message: 'Error updating product', error: error.message });
   }
-  };
+  }; 
 
   const deleteprod=async (req, res) => {
     try {

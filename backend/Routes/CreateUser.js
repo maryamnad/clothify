@@ -30,6 +30,7 @@ const router = express.Router();
 const { signup, login, verifyToken, getUser, refreshToken, logout, getcustomer,updateuser,changePassword  } = require("../Controller/UserController");
 const { newprod, getprod, updateprod,deleteprod } = require("../Controller/ProductController");
 const {newcart,getcart,deleteCart,increaseCartQuantity,decreaseCartQuantity} =require("../Controller/CartController")
+const {neworder}=require("./../Controller/OderContoller")
 
 router.get('/', (req,res,next) => {
     res.send("hello!!");
@@ -53,4 +54,5 @@ router.get('/user/getcart', verifyToken, getcart);
 router.put('/increasecart/:_id',increaseCartQuantity);
 router.put('/decreasecart/:_id',decreaseCartQuantity);
 router.delete('/deletecart/:_id',deleteCart)
+router.post('/payment',neworder)
 module.exports = router;
