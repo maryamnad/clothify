@@ -139,7 +139,7 @@ const handleCheckout = () => {
 
                 ))}
                 <div className='total'><span>Total Price of your cart </span><span>Rs-{totalPrice}</span></div>
-                <button className='checkout'>Checkout</button>
+                
             </div>
             <button className="checkout-button" onClick={handleCheckout}>
             Checkout

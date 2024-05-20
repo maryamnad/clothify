@@ -1,16 +1,19 @@
 const Order=require("./../models/order")
 const neworder = async (req, res, next) => {
     try {
-        const { paymentmethod, titleisPaymentDetailsVisible,  paymentInfo, products} = req.body;
+        const { paymentMethod,cardNumber,expiryDate,cvv,nameOnCard,products} = req.body;
         console.log("Req: ",req.body)
 
-        if (paymentmethod=="online")
-        {
+        // if (paymentmethod=="online")
+        // {
 
-        }
+        // }
+        console.log("products",products)
 
         const orderPromises = products.map(async (product) => {
             const { clothid, title, price, stock, category, sale, onsale, link, userid } = product;
+            console.log("product",product)
+            console.log("title:",title)
             const orderData = {
                 clothid,
                 title,
@@ -23,7 +26,7 @@ const neworder = async (req, res, next) => {
                 userid,
                 date: new Date(),
                 status: "paid",
-                mode: paymentmethod
+                mode: paymentMethod
             };
             console.log(orderData)
             // Create a new order document in the database

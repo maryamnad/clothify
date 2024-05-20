@@ -12,14 +12,11 @@ const PaymentModal = ({ isOpen, onClose, products }) => {
       cvv: '',
       nameOnCard: '',
     },
-    products: products, // Using the products prop passed from Cart component
+ 
   });
   const [errorMessage, setErrorMessage] = useState('');
 
-  useEffect(() => {
-    console.log(products)
-    console.log("Products are:", paymentData);
-  }, [paymentData.products]);
+  
 
   const handlePaymentMethodChange = (event) => {
     const method = event.target.value;
@@ -43,13 +40,19 @@ const PaymentModal = ({ isOpen, onClose, products }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setPaymentData((prev) => ({
-      ...prev,
-      product: products // Include products in the data to send
-    }));
+    const order = {
+      paymentMethod: paymentData.paymentMethod,
+      cardNumber: paymentData.paymentInfo.cardNumber,
+      expiryDate: paymentData.paymentInfo.expiryDate,
+      cvv: paymentData.paymentInfo.cvv,
+      nameOnCard: paymentData.paymentInfo.nameOnCard,
+      products: products
+
+  };
+  console.log(order)
 
     try {
-      const response = await axios.post('http://127.0.0.1:5000/api/payment', paymentData);
+      const response = await axios.post('http://127.0.0.1:5000/api/payment', order);
       console.log(response.data.message);
       // Handle successful payment here (e.g., display a success message, close modal, etc.)
     } catch (error) {
