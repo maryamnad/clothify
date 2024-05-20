@@ -10,7 +10,7 @@ function Footer() {
                         <h3>Contact Us</h3>
                         <p><a href="mailto:l217517@lhr.nu.edu.pk">clothify@business.com</a></p>
                         <p><Link to="tel:+923210000000">+92 321 0000000</Link></p>
-                        <p>Lahore, Pakistan</p>
+                        <p className='addr'>Lahore, Pakistan</p>
                     </div>
                     <div class="footer-content">
                         <h3>Quick Links</h3>

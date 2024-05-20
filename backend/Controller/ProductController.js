@@ -20,7 +20,7 @@ const newprod = async (req, res) => {
     const imageName = image[0].name;
 
     // Create a path to save the image
-    const imagePath = path.join('C:\Users\HP\Desktop\web\v2\clothify\src\images', imageName);
+    const imagePath = path.join('C:\\Users\\HP\\Desktop\\web\v2\\clothify\\src\\images', imageName);
     const response = await axios.get(imageUrl, { responseType: 'arraybuffer' });
     const imageData = Buffer.from(response.data, 'base64');
 
