@@ -54,4 +54,16 @@ const neworder = async (req, res, next) => {
 
 };
 
+const getorder= async (req, res) => {
+  try {
+    const data = await Order.find();
+    res.json(data);
+    console.log("Done")
+  } catch (err) {
+    console.error(err); // Print any errors to the console for debugging
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 exports.neworder = neworder;
+exports.getorder = getorder;
