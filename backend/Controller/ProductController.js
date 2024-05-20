@@ -20,7 +20,7 @@ const newprod = async (req, res) => {
     const imageName = image[0].name;
 
     // Create a path to save the image
-    const imagePath = path.join('C:\Users\HP\Desktop\web\v2\clothify\src\images', imageName);
+    const imagePath = path.join("D:/Eesha/Semester 6/Web/Project/clothify/src", imageName);
     const response = await axios.get(imageUrl, { responseType: 'arraybuffer' });
     const imageData = Buffer.from(response.data, 'base64');
 
@@ -101,9 +101,56 @@ const getprod= async (req, res) => {
       res.status(500).json({ message: "Internal server error" });
     }
   };
+
+  const increaseQuantity = async (req, res) => {
+    try {
+        const productId = req.id;
+        console.log(productId)
+
+        const cartItem = await Product.findById(productId)
+
+        if (cartItem) {
+            cartItem.stock += 1;
+            await cartItem.save();
+            // res.sta/tus(200).json({ message: 'Product quantity increased successfully', Cart: cartItem });
+        } else {
+            // res.status(404).json({ message: 'Product not found in cart' });
+        }
+    } catch (error) {
+        console.error('Error increasing product quantity:', error);
+        // res.status(500).json({ message: 'Internal server error', error: error });
+    }
+};
+
+const decreaseQuantity = async (req, res) => {
+    try {
+        const productId = req.id;
+        console.log(productId)
+
+        const cartItem = await Product.findById(productId)
+
+        if (cartItem) {
+            if (cartItem.stock > 1) {
+                cartItem.stock -= 1;
+                await cartItem.save();
+                // res.status(200).json({ message: 'Product quantity decreased successfully', Cart: cartItem });
+            } else {
+                await Product.findByIdAndDelete(productId);
+                // res.status(200).json({ message: 'Product removed from cart as quantity is zero', Cart: cartItem });
+            }
+        } else {
+            // res.status(404).json({ message: 'Product not found in cart' });
+        }
+    } catch (error) {
+        console.error('Error decreasing product quantity:', error);
+        // res.status(500).json({ message: 'Internal server error', error: error });
+    }
+};
   
 
 exports.newprod = newprod;
 exports.getprod = getprod;
 exports.updateprod = updateprod;
 exports.deleteprod = deleteprod;
+exports.increaseQuantity = increaseQuantity;
+exports.decreaseQuantity = decreaseQuantity;
