@@ -29,13 +29,6 @@ header{
     height: auto;
 }
 
-.Navbar{
-    position: sticky; top: 0;
-    z-index: 1000;
-    /* margin-bottom: 40%; */
-    /* position:static; */
-}
-
 .navbar a{
     color: var(--secondary-color);
     font-size: 16px;
@@ -50,12 +43,7 @@ header{
     background-color: var(--primary-color);
 }
 
-.navicon{
-    display: flex;
-    align-items: center;    
-    justify-content: space-between;
 
-}
 
 .navicon i{
     margin-right: 20px;
@@ -70,3 +58,83 @@ header{
     color: var(--primary-color);
 }
 
+
+
+  
+  .navbar {
+    display: flex;
+    list-style-type: none;
+    position: sticky; top: 0;
+    z-index: 1000;
+    /* Add other styling for your navbar */
+  }
+  
+  .navicon {
+    display: flex;
+    align-items: center;
+    display: flex;
+    align-items: center;    
+    justify-content: space-between;
+    /* Add other styling for your navicon */
+  }
+  
+  
+  
+  
+  /* Dropdown menu styles */
+  .dropdown-menu {
+    display: none; /* Hidden by default */
+    position: absolute; /* Position it absolutely */
+    top: 60px; /* Adjust this value as needed */
+    right: 20px; /* Align to the right side */
+    flex-direction: column;
+    background-color: #2b2d30; /* Background color for the dropdown */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add some shadow */
+    border-radius: 4px; /* Optional: add some border radius */
+    padding: 10px; /* Optional: add some padding */
+  }
+  
+  .dropdown-menu.active {
+    display: flex; /* Show the dropdown when active */
+  }
+  
+
+  @media (max-width: 768px) {
+    .navbar {
+      display: none; /* Hide the navbar links on small screens */
+    }
+    
+    #menuicon {
+      display: block; 
+      color: black
+    }
+    
+    .dropdown-menu.active {
+      display: flex; 
+    }
+    
+  }
+
+  .buton {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    outline: inherit;
+
+    padding: 10px 20px;
+    background-color: #2b2d30;
+    color: white;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+
+  .buton:hover {
+    background-color: #c9900d;
+    color: #fff;
+  }
+  

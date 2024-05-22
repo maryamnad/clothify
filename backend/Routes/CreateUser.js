@@ -41,7 +41,7 @@ router.post("/signup", signup);
 router.post("/login", login);
 router.get("/user", verifyToken, getUser);
 router.get("/refresh", refreshToken, verifyToken, getUser);
-router.post("/logout", verifyToken, logout);
+router.post("/logout", logout);
 router.put("/user/update",verifyToken, updateuser)
 router.post("/newprod", newprod);
 router.get("/getprod", getprod);
