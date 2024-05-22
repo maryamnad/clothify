@@ -28,7 +28,7 @@ const express = require('express');
 const router = express.Router();
 
 const { signup, login, verifyToken, getUser, refreshToken, logout, getcustomer,updateuser,changePassword  } = require("../Controller/UserController");
-const { newprod, getprod, updateprod,deleteprod ,increaseQuantity,decreaseQuantity} = require("../Controller/ProductController");
+const { newprod, getprod, updateprod,deleteprod ,increaseQuantity,decreaseQuantity,addproduct} = require("../Controller/ProductController");
 const {newcart,getcart,deleteCart,increaseCartQuantity,decreaseCartQuantity} =require("../Controller/CartController")
 const {neworder,getorder}=require("./../Controller/OderContoller")
 
@@ -49,13 +49,12 @@ router.get("/getcustomer",getcustomer)
 router.put("/updateprod/:_id",updateprod)
 router.delete("/deleteprod/:_id",deleteprod)
 router.put('/user/change-password', verifyToken, changePassword);
-router.post('/newcart',newcart)
+router.post('/newcart',newcart,decreaseQuantity)
 router.get('/user/getcart', verifyToken, getcart);
-router.get('/user/getcart', verifyToken, getcart);
-router.get('/user/getcart', verifyToken, getcart);
+
 router.put('/increasecart/:_id',increaseCartQuantity,decreaseQuantity);
 router.put('/decreasecart/:_id',decreaseCartQuantity,increaseQuantity);
-router.delete('/deletecart/:_id',deleteCart)
+router.delete('/deletecart/:_id',deleteCart,addproduct)
 router.post('/payment',neworder)
 router.get('/order',getorder)
 module.exports = router;

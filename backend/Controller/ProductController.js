@@ -1,7 +1,9 @@
 const Product = require("../models/product");
+const mongoose = require('mongoose');
 // const multer = require('multer');
 const path = require('path');
 const axios = require('axios'); // Import axios for making HTTP requests
+const ObjectId = mongoose.Types.ObjectId;
 
 
 const fs = require('fs');
@@ -40,7 +42,7 @@ const newprod = async (req, res) => {
       const prod = new Product({
         title,
         price,
-        stock: 1,
+        stock,
         category,
         sale,
         onsale,
@@ -104,7 +106,7 @@ const getprod= async (req, res) => {
 
   const increaseQuantity = async (req, res) => {
     try {
-        const productId = req.id;
+        const productId = req.body.clothid;
         console.log(productId)
 
         const cartItem = await Product.findById(productId)
@@ -114,7 +116,47 @@ const getprod= async (req, res) => {
             await cartItem.save();
             // res.sta/tus(200).json({ message: 'Product quantity increased successfully', Cart: cartItem });
         } else {
-            // res.status(404).json({ message: 'Product not found in cart' });
+          const prod = new Product({
+            _id: new mongoose.Types.ObjectId(productId),
+            title: req.body.title,
+            price: req.body.price,
+            stock: 1,
+            category: req.body.category,
+            sale: req.body.sale,
+            onsale: req.body.onsale,
+            link: req.body.link,
+          });
+          await prod.save();
+        }
+    } catch (error) {
+        console.error('Error increasing product quantity:', error);
+        // res.status(500).json({ message: 'Internal server error', error: error });
+    }
+};
+
+  const addproduct = async (req, res) => {
+    try {
+        const productId = req.body.clothid;
+        console.log(productId)
+
+        const cartItem = await Product.findById(productId)
+
+        if (cartItem) {
+            cartItem.stock += req.body.stock;
+            await cartItem.save();
+            // res.sta/tus(200).json({ message: 'Product quantity increased successfully', Cart: cartItem });
+        } else {
+          const prod = new Product({
+            _id: new mongoose.Types.ObjectId(productId),
+            title: req.body.title,
+            price: req.body.price,
+            stock: req.body.stock,
+            category: req.body.category,
+            sale: req.body.sale,
+            onsale: req.body.onsale,
+            link: req.body.link,
+          });
+          await prod.save();
         }
     } catch (error) {
         console.error('Error increasing product quantity:', error);
@@ -124,7 +166,7 @@ const getprod= async (req, res) => {
 
 const decreaseQuantity = async (req, res) => {
     try {
-        const productId = req.id;
+        const productId = req.body.clothid;
         console.log(productId)
 
         const cartItem = await Product.findById(productId)
@@ -154,3 +196,4 @@ exports.updateprod = updateprod;
 exports.deleteprod = deleteprod;
 exports.increaseQuantity = increaseQuantity;
 exports.decreaseQuantity = decreaseQuantity;
+exports.addproduct = addproduct;

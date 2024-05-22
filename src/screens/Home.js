@@ -71,6 +71,7 @@ export default function Home() {
         }
         console.log("Item: ",item)
         const cartItem = {
+            _id: item._id,
             title: item.title,
             price: item.price,
             stock: item.stock,
@@ -90,6 +91,11 @@ export default function Home() {
           } catch (error) {
             console.error("Error adding product:", error);
           }
+
+          axios.get("http://127.0.0.1:5000/api/getprod")
+        .then((res) => {
+            setproducts(res.data);
+        })
         
 
 

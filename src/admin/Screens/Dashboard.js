@@ -61,8 +61,9 @@ import {
         setOrder(res.data)
       })
       calculateTotalPrice();
+      console.log(revenue)
     
-    }, []);
+    }, [order]);
 
     const calculateTotalPrice = () => {
       let totalPrice = 0;

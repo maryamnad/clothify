@@ -21,7 +21,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
 useEffect(() => {
   fetchCartItems();
   
-}, [token]);
+}, [token],[products]);
 
 useEffect(() => {
   calculateTotalPrice();
@@ -62,6 +62,7 @@ const deleteCartItem = async (product) => {
   } catch (error) {
       console.error('Error deleting from cart:', error);
   }
+  fetchCartItems();
 };
 
 const increaseCartItemQuantity = async (product) => {
@@ -75,6 +76,7 @@ const increaseCartItemQuantity = async (product) => {
   } catch (error) {
       console.error('Error increasing cart item quantity:', error);
   }
+  fetchCartItems();
 };
 
 // Decrease cart item quantity
@@ -86,6 +88,7 @@ const decreaseCartItemQuantity = async (product) => {
   } catch (error) {
       console.error('Error decreasing cart item quantity:', error);
   }
+  fetchCartItems();
 };
 
 

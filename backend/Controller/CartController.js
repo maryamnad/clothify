@@ -1,11 +1,14 @@
 const Cart=require('./../models/cart')
-const newcart = async (req, res) => {
+const newcart = async (req, res,next) => {
     try {
         const { _id, title, price, stock, category, sale, onsale, link, userid } = req.body;
-
+        console.log(_id)
+        clothid=String(_id)
+        console.log(clothid)
+        
         // Check if the item with the same clothid already exists in the cart
         let cartItem = await Cart.findOne({ clothid: _id, userid: userid });
-
+        
         if (cartItem) {
             // If it exists, increase the stock by 1
             cartItem.stock += 1;
@@ -14,7 +17,7 @@ const newcart = async (req, res) => {
         } else {
             // If it doesn't exist, create a new cart entry
             cartItem = new Cart({
-                clothid: _id,
+                clothid,
                 title,
                 price,
                 stock: 1,
@@ -24,14 +27,18 @@ const newcart = async (req, res) => {
                 link,
                 userid
             });
+            console.log(cartItem)
 
             await cartItem.save();
+            
             res.status(200).json({ message: 'Product added successfully', Cart: cartItem });
         }
+        req.body=cartItem
     } catch (error) {
         console.error('Error adding product:', error);
         res.status(500).json({ message: 'Internal server error', error: error });
     }
+    next()
 };
 
 const getcart = async (req, res) => {
@@ -51,18 +58,19 @@ const getcart = async (req, res) => {
     }
 };
 
-const deleteCart = async (req, res) => {
+const deleteCart = async (req, res,next) => {
     try {
         const productId = req.params._id;
         console.log(productId)
 
         const cartItem = await Cart.findByIdAndDelete(productId)
-
+        req.body=cartItem
         res.status(200).json({ message: 'Product removed from cart successfully' });
     } catch (error) {
         console.error('Error removing product from cart:', error);
         res.status(500).json({ message: 'Internal server error', error: error });
     }
+    next();
 };
 
 const increaseCartQuantity = async (req, res,next) => {
@@ -79,11 +87,12 @@ const increaseCartQuantity = async (req, res,next) => {
         } else {
             res.status(404).json({ message: 'Product not found in cart' });
         }
+        req.body=cartItem
     } catch (error) {
         console.error('Error increasing product quantity:', error);
         res.status(500).json({ message: 'Internal server error', error: error });
     }
-    req.id=cartItem.userid
+    
     next()
 };
 
@@ -106,11 +115,12 @@ const decreaseCartQuantity = async (req, res,next) => {
         } else {
             res.status(404).json({ message: 'Product not found in cart' });
         }
-        req.id=cartItem.userid
+        req.body=cartItem
     } catch (error) {
         console.error('Error decreasing product quantity:', error);
         res.status(500).json({ message: 'Internal server error', error: error });
     }
+    
     
     next();
 };
