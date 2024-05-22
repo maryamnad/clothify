@@ -1,9 +1,10 @@
-import { Avatar, Rate, Space, Table, Typography } from "antd";
+import { Avatar, Rate, Space, Table, Typography, Image } from "antd";
 import { useEffect, useState } from "react";
 import { getInventory, getOrders } from "../API";
 import Header from "../Components/Header";
 import SideMenu from "../Components/SideMenu";
 import Footer from "../Components/Footer";
+import axios from 'axios'
 
 function Orders() {
   const [loading, setLoading] = useState(false);
@@ -11,10 +12,13 @@ function Orders() {
 
   useEffect(() => {
     setLoading(true);
-    getOrders().then((res) => {
-      setDataSource(res.products);
-      setLoading(false);
-    });
+    axios.get("http://127.0.0.1:5000/api/order")
+      .then((res) => {
+        console.log(res.data)
+        setDataSource(res.data);
+        setLoading(false);
+      })
+    
   }, []);
 
   return (
@@ -28,6 +32,10 @@ function Orders() {
         loading={loading}
         columns={[
           {
+            title: "ID",
+            dataIndex: "_id"
+          },
+          {
             title: "Title",
             dataIndex: "title",
           },
@@ -37,18 +45,34 @@ function Orders() {
             render: (value) => <span>${value}</span>,
           },
           {
-            title: "DiscountedPrice",
-            dataIndex: "discountedPrice",
-            render: (value) => <span>${value}</span>,
+            title: "Stock",
+            dataIndex: "stock",
           },
           {
-            title: "Quantity",
-            dataIndex: "quantity",
+            title: "Category",
+            dataIndex: "category",
           },
           {
-            title: "Total",
-            dataIndex: "total",
+            title: "Sale",
+            dataIndex: "sale",
           },
+          {
+            title: "Image",
+            dataIndex: "link",
+            render: (link) => <Image src={require(`./../../images/${link}`)} width={50} />,
+          },
+          {
+            title: "Date",
+            dataIndex: "date"
+          },
+          {
+            title: "Status",
+            dataIndex: "status"
+          },
+          {
+            title: "Mode of Payment",
+            dataIndex: "mode"
+          }
         ]}
         dataSource={dataSource}
         pagination={{

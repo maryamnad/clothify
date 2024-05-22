@@ -135,22 +135,30 @@ const refreshToken = (req,res,next) => {
 }
 
 const logout = (req, res) => {
-    const cookies = req.headers.cookie;
-    const prevToken = cookies.split('=')[1];
-    if (!prevToken) {
-        return res.status(400).json({message: "Couldn't find token"})
+  const authHeader = req.headers['authorization'];
+  if (!authHeader) {
+    return res.status(401).json({ message: "Authorization header missing" });
+  }
+
+  const token = authHeader.split(' ')[1];
+  console.log(token); // Moved after token is defined
+
+  jwt.verify(token, JWT_SECRET_KEY, (err, user) => {
+    if (err) {
+      console.log(err);
+      return res.status(403).json({ message: "Authentication failed" });
     }
-    jwt.verify(String(prevToken), process.env.JWT_SECRET_KEY, (err,user) => {
-        if (err){
-            console.log(err);
-            return res.status(403).json({message: "Authentication failed"});
-        }
-        res.clearCookie(`${user.id}`);
-        req.cookies[`${user.id}`] = "";
-        return res.status(200).json({message: "Successfully Logged Out"});
+
+    res.clearCookie('token', {
+      httpOnly: true,
+      sameSite: 'strict',
+      // Add 'secure: true' if you're using HTTPS
     });
-    
-}
+
+    return res.status(200).json({ message: "Successfully Logged Out" });
+  });
+};
+
 
 const changePassword = async (req, res) => {
     const userId = req.id;

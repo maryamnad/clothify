@@ -28,9 +28,9 @@ const express = require('express');
 const router = express.Router();
 
 const { signup, login, verifyToken, getUser, refreshToken, logout, getcustomer,updateuser,changePassword  } = require("../Controller/UserController");
-const { newprod, getprod, updateprod,deleteprod ,increaseQuantity,decreaseQuantity} = require("../Controller/ProductController");
+const { newprod, getprod, updateprod,deleteprod ,increaseQuantity,decreaseQuantity,addproduct,category} = require("../Controller/ProductController");
 const {newcart,getcart,deleteCart,increaseCartQuantity,decreaseCartQuantity} =require("../Controller/CartController")
-const {neworder}=require("./../Controller/OderContoller")
+const {neworder,getorder}=require("./../Controller/OderContoller")
 
 
 
@@ -41,20 +41,21 @@ router.post("/signup", signup);
 router.post("/login", login);
 router.get("/user", verifyToken, getUser);
 router.get("/refresh", refreshToken, verifyToken, getUser);
-router.post("/logout", verifyToken, logout);
+router.post("/logout", logout);
 router.put("/user/update",verifyToken, updateuser)
 router.post("/newprod", newprod);
 router.get("/getprod", getprod);
+router.get("/category/:category", category);
 router.get("/getcustomer",getcustomer)
 router.put("/updateprod/:_id",updateprod)
 router.delete("/deleteprod/:_id",deleteprod)
 router.put('/user/change-password', verifyToken, changePassword);
-router.post('/newcart',newcart)
+router.post('/newcart',newcart,decreaseQuantity)
 router.get('/user/getcart', verifyToken, getcart);
-router.get('/user/getcart', verifyToken, getcart);
-router.get('/user/getcart', verifyToken, getcart);
+
 router.put('/increasecart/:_id',increaseCartQuantity,decreaseQuantity);
 router.put('/decreasecart/:_id',decreaseCartQuantity,increaseQuantity);
-router.delete('/deletecart/:_id',deleteCart)
+router.delete('/deletecart/:_id',deleteCart,addproduct)
 router.post('/payment',neworder)
+router.get('/order',getorder)
 module.exports = router;

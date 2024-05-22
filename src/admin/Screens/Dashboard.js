@@ -34,16 +34,14 @@ import {
   
   function Dashboard() {
     const [orders, setOrders] = useState(0);
+    const [order, setOrder] = useState([]);
+
     const [inventory, setInventory] = useState(0);
     const [customers, setCustomers] = useState(0);
     const [revenue, setRevenue] = useState(0);
   
     useEffect(() => {
       
-      getOrders().then((res) => {
-        setOrders(res.total);
-        setRevenue(res.discountedTotal);
-      });
       axios.get("http://127.0.0.1:5000/api/getprod")
       .then((res) => {
         console.log(res.data.length)
@@ -57,7 +55,23 @@ import {
       .then((res) => {
         setCustomers(res.data.length);
       })
-    }, []);
+      axios.get("http://127.0.0.1:5000/api/order")
+      .then((res) => {
+        setOrders(res.data.length);
+        setOrder(res.data)
+      })
+      calculateTotalPrice();
+      console.log(revenue)
+    
+    }, [order]);
+
+    const calculateTotalPrice = () => {
+      let totalPrice = 0;
+      order.forEach((product) => {
+        totalPrice += product.price * product.stock; // Assuming product price is stored in `price` field
+      });
+      setRevenue(totalPrice);
+    };
   
     return (
       <div className="App">
@@ -156,10 +170,15 @@ import {
   
     useEffect(() => {
       setLoading(true);
-      getOrders().then((res) => {
-        setDataSource(res.products.splice(0, 3));
-        setLoading(false);
-      });
+      axios.get("http://127.0.0.1:5000/api/order")
+      .then((res) => {
+        setDataSource(res.data.splice(0, 3));
+      
+      })
+      
+      
+      setLoading(false);
+      
     }, []);
   
     return (
@@ -173,11 +192,11 @@ import {
             },
             {
               title: "Quantity",
-              dataIndex: "quantity",
+              dataIndex: "stock",
             },
             {
               title: "Price",
-              dataIndex: "discountedPrice",
+              dataIndex: "price",
             },
           ]}
           loading={loading}
@@ -202,6 +221,7 @@ import {
         const data = res.carts.map((cart) => {
           return cart.discountedTotal;
         });
+        
   
         const dataSource = {
           labels,
