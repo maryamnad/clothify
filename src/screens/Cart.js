@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/footer';
 // import { products } from '../data/products';
 // import { products as initialProducts } from '../data/cartdata';
+import Payment from './payment'
 import "./Cart.css"
 import { useSelector } from 'react-redux';
 import axios from 'axios'
@@ -14,11 +15,17 @@ const [totalPrice, setTotalPrice] = useState(0);
 const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 const token = useSelector((state) => state.auth.token);
 const [user,setuser]=useState([])
+const [isModalOpen, setIsModalOpen] = useState(false);
 
 
 useEffect(() => {
   fetchCartItems();
+  
 }, [token]);
+
+useEffect(() => {
+  calculateTotalPrice();
+}, [products]);
 
 const fetchCartItems = async () => {
   try {
@@ -37,6 +44,14 @@ const fetchCartItems = async () => {
   } catch (error) {
       console.error('Error fetching cart items:', error);
   }
+};
+
+const calculateTotalPrice = () => {
+  let totalPrice = 0;
+  products.forEach((product) => {
+    totalPrice += product.price * product.stock; // Assuming product price is stored in `price` field
+  });
+  setTotalPrice(totalPrice);
 };
 
 const deleteCartItem = async (product) => {
@@ -89,6 +104,11 @@ const handleDelete = (product) => {
   deleteCartItem( product);
   fetchCartItems();
 };
+
+const handleCheckout = () => {
+  setIsModalOpen(true);
+};
+
   return (
     <>
     <Navbar/>
@@ -119,9 +139,13 @@ const handleDelete = (product) => {
 
                 ))}
                 <div className='total'><span>Total Price of your cart </span><span>Rs-{totalPrice}</span></div>
-                <button className='checkout'>Checkout</button>
+                
             </div>
+            <button className="checkout-button" onClick={handleCheckout}>
+            Checkout
+          </button>
     </div>
+    <Payment isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} products={products} />
 
     <Footer/>
     </>
