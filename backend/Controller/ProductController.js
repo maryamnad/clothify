@@ -72,6 +72,17 @@ const getprod= async (req, res) => {
     }
   };
 
+  const category= async (req, res) => {
+    try {
+      const cat=req.params.category
+      console.log(cat)
+      const data = await Product.find({category: cat});
+      console.log(data)
+      res.json(data);
+    } catch (err) {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  };
   const updateprod=async (req, res) => {
     const productId = req.params._id;
   const updatedProductData = req.body;
@@ -197,3 +208,4 @@ exports.deleteprod = deleteprod;
 exports.increaseQuantity = increaseQuantity;
 exports.decreaseQuantity = decreaseQuantity;
 exports.addproduct = addproduct;
+exports.category=category
