@@ -66,7 +66,7 @@ function SignInForm() {
 
   return (
     <div className="form-container sign-in-container">
-      <form onSubmit={handleOnSubmit}>
+      <form className='signinForm' onSubmit={handleOnSubmit}>
         <h1>Sign in</h1>
         <div className="social-container">
           <a href="#" className="social">

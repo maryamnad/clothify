@@ -3,6 +3,7 @@
     color: var(--secondary-color);
     z-index: 10001;
     cursor: pointer;
+    padding: 2%;
 }
 
 section{

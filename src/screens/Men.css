@@ -2,10 +2,11 @@ a {
     text-decoration: none;
     display: inline-block;
     padding: 8px 16px;
+    font-size: 1.2rem;
   }
   
   a:hover {
-    background-color: #b8954b;
+    /* background-color: #b8954b; */
     color: f5eeee;
   }
   

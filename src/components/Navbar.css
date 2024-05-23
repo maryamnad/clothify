@@ -1,13 +1,41 @@
+<<<<<<< Updated upstream
 :root {
   --primary-color: #b8954b;
   --secondary-color: #f5eeee;
   --third-color: #252525;
+=======
+
+
+:root{
+    --primary-color:  #b8954b;
+    --secondary-color:#f5eeee;
+    --third-color: #252525;
+}
+.Homepage{
+    position: relative;
+}
+header{
+    background-color: var(--third-color);
+    position: fixed;
+    width: 100%;
+    height: auto;
+    top:0;
+    right:0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1% 10%;
+    /* padding-bottom: 10px; */
+    box-shadow: 0 8px 4px 0 rgba(85, 85, 85, 0.2);
+>>>>>>> Stashed changes
 }
 
 .Homepage {
   position: relative;
 }
 
+<<<<<<< Updated upstream
 header {
   background-color: var(--third-color);
   position: fixed;
@@ -27,6 +55,21 @@ header {
 .logo img {
   max-width: 130px;
   height: auto;
+=======
+.navbar a{
+    color: var(--secondary-color);
+    font-size: 1rem;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    font-weight: 400;
+    transition: all .42s ease;
+}
+
+.navbar a:hover{
+    color:  var(--secondary-color);
+    background-color: var(--primary-color);
+    transition: all .42s ease;
+>>>>>>> Stashed changes
 }
 
 .navbar {
@@ -152,7 +195,32 @@ header {
     display: block;
     color: black;
   }
+<<<<<<< Updated upstream
 
+=======
+  
+  .navbar ul{
+    margin: auto;
+    /* background-color: var(--primary-color); */
+  }
+
+  
+  
+  
+  /* Dropdown menu styles */
+  .dropdown-menu {
+    display: none; /* Hidden by default */
+    position: absolute; /* Position it absolutely */
+    top: 60px; /* Adjust this value as needed */
+    right: 20px; /* Align to the right side */
+    flex-direction: column;
+    background-color: #2b2d30; /* Background color for the dropdown */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add some shadow */
+    border-radius: 4px; /* Optional: add some border radius */
+    padding: 10px; /* Optional: add some padding */
+  }
+  
+>>>>>>> Stashed changes
   .dropdown-menu.active {
     display: flex;
   }

@@ -1,13 +1,15 @@
 
-.App {
+.app {
     font-family: sans-serif;
     text-align: center;
+    padding-top: 7%;
   }
   
   @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
   
   * {
     box-sizing: border-box;
+   
   }
   
   /* body {
@@ -72,7 +74,7 @@
     border-color: #ffffff;
   }
   
-  form {
+  .signinForm {
     background-color: #ffffff;
     display: flex;
     align-items: center;

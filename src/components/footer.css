@@ -88,6 +88,7 @@ footer {
   a {
     color: var(--secondary-color);
     text-decoration: none;
+<<<<<<< Updated upstream
   }
   
   a:hover {
@@ -96,6 +97,16 @@ footer {
   }
   
   .bottom-bar {
+=======
+}
+
+a:hover{
+    color:  var(--secondary-color);
+    /* background-color: var(--primary-color); */
+}
+
+.bottom-bar{
+>>>>>>> Stashed changes
     background: var(--primary-color);
     text-align: center;
     padding: 10px 0;
