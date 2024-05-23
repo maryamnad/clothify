@@ -14,6 +14,7 @@ function Navbar() {
   const token = useSelector((state) => state.auth.token);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   const dispatch = useDispatch();
   const history = useNavigate();
   const [state, setState] = React.useState({
@@ -23,6 +24,7 @@ function Navbar() {
 
   const handleMenuClick = () => {
     setIsDropdownOpen(!isDropdownOpen);
+   
   };
   const sendRequest = async () => {
     try {
@@ -65,9 +67,21 @@ function Navbar() {
       history("/login");
     }
   }
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    // Handle the search functionality here
+    console.log('Search Query:', searchQuery);
+  };
+ 
 
   return (
-    <nav className="Navbar">
+    <nav className="navbar">
       <header>
         <div className="sticky"></div>
         <Link to="/Home" className="logo"><img src={logo} alt="Logo" /></Link>
@@ -80,7 +94,16 @@ function Navbar() {
         </ul>
 
         <div className="navicon">
-          <Link to="/"><i className='bx bx-search'></i></Link>    
+        <form onSubmit={handleSearchSubmit} className="search-bar">
+            <input 
+              type="text" 
+              value={searchQuery} 
+              onChange={handleSearchChange} 
+              placeholder="Search..." 
+            />
+            <button type="submit"><i className='bx bx-search'></i></button>
+          </form>
+          {/* <Link to="/"><i className='bx bx-search'></i></Link>     */}
           <Link to="/user/accountsettings"><i className='bx bxs-user'></i></Link>    
           <Link to="/cart"><i className='bx bx-cart'></i></Link>    
 
@@ -92,6 +115,8 @@ function Navbar() {
         <li><button className="buton" onClick={login}>Login</button></li>
         <li><button className="buton" onClick={logout}>Log Out</button></li>
       </ul>
+
+
     </nav>
   );
 }

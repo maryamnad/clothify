@@ -136,5 +136,65 @@ header{
   .buton:hover {
     background-color: #c9900d;
     color: #fff;
+
   }
+
+  /* .search-bar {
+    display: flex;
+    align-items: center;
+    margin-right: 15px; 
+    background-color: var(--third-color);
+  }
+  
+  .search-bar input {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .search-bar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 16px;
+  } */
+  .search-bar {
+    display: flex;
+    align-items: center;
+    margin-right: 15px; /* Adjust spacing as needed */
+    background-color: var(--third-color);
+    flex-direction: inherit;
+  }
+  
+  .search-bar input {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px ; /* Rounded corners on left side */
+    font-size: 16px;
+    outline: none;
+  }
+  
+  .search-bar button {
+    background: none;
+    border: none;
+    border-left: none; /* Remove border between input and button */
+    border-radius:4px; /* Rounded corners on right side */
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  .search-bar button i {
+    font-size: 18px;
+    color: var(--secondary-color); /* Match icon color with other nav icons */
+    /* transition: color 0.3s; */
+  }
+  
+  .search-bar button i:hover {
+    color: var(--primary-color); /* Change color on hover */
+  }
+  
   
