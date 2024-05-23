@@ -80,6 +80,25 @@ const getuserorder= async (req, res) => {
   }
 };
 
+const updateorder=async(req,res)=>
+{
+  try {
+    const id=req.params._id
+    console.log("Id",id)
+    const user = await Order.findById(id);
+    user.status=req.body.status
+    console.log(req.body.status)
+    const updatedUser = await user.save();
+   
+    res.json(updatedUser);
+    console.log("Done")
+  } catch (err) {
+    console.error(err); // Print any errors to the console for debugging
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
 exports.neworder = neworder;
 exports.getorder = getorder;
 exports.getuserorder = getuserorder;
+exports.updateorder=updateorder

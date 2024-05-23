@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 
 
 
-function Navbar() {
+function Navbar({ handleStateChange }) {
   const token = useSelector((state) => state.auth.token);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -71,17 +71,20 @@ function Navbar() {
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
+     // Update the parent component state
   };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     // Handle the search functionality here
-    console.log('Search Query:', searchQuery);
+    
+    handleStateChange(searchQuery);
+    
   };
  
 
   return (
-    <nav className="navbar">
+    <nav className="navbarr">
       <header>
         <div className="sticky"></div>
         <Link to="/Home" className="logo"><img src={logo} alt="Logo" /></Link>

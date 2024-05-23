@@ -5,25 +5,16 @@ import axios from 'axios'
 import Navbar2 from '../components/Navbar'
 import Footer from '../components/footer';
 import './style.css'
-import img1 from '../images/img1.jpg'
-import img2 from '../images/img2.jpg'
-import img3 from '../images/img3.jpg'
-import img4 from '../images/img4.jpg'
-import img5 from '../images/img5.jpg'
-import img6 from '../images/img6.jpg'
-import img7 from '../images/img7.jpg'
-import img8 from '../images/img8.jpg'
-import img9 from '../images/img9.jpg'
-import temp from '../images/temp.jpg'
 import React, { useState, useEffect } from "react";
 import { useSelector } from 'react-redux';
-export default function Home() {
+export default function Home () {
     
     const [currentSlide, setCurrentSlide] = useState(0);
     const [products, setproducts] = useState([]);
     const [user,setuser]=useState([])
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     const token = useSelector((state) => state.auth.token);
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
 
@@ -49,12 +40,33 @@ export default function Home() {
               console.error('Error fetching user data:', error);
             }
         }
-
+        console.log('Search :', searchQuery);
         fetchUserData();
         
+        
+        const search = async () => {
+            
+            try {
+              
+              const response = await axios.get(`http://127.0.0.1:5000/api/search/${searchQuery}`)
+              setproducts(response.data.product);
+              console.log(response.data.product);
+              console.log(products)
+
+            } catch (error) {
+              alert("No Result")
+            }
+        }
+        if(searchQuery!='')
+        {
+            search()
+        }
+        
 
         
-    }, []);
+
+        
+    }, [searchQuery]);
 
     const changeSlide = (step) => {
         setCurrentSlide(currentSlide + step);
@@ -97,12 +109,13 @@ export default function Home() {
             setproducts(res.data);
         })
         
+        
 
 
     };
   return (
     <>
-        <Navbar/>
+        <Navbar handleStateChange={(value) => setSearchQuery(value)}/>
        
         
             <div className="Homeimage">
@@ -131,7 +144,7 @@ export default function Home() {
                 </div>
                 <div className="items">
 
-                    {products.map(product=>(
+                    {products&&products.map(product=>(
                         <div className="row">
                         <img src={ require(`./../images/${product.link}`)} alt=""/>
                         <div className="itemtext">

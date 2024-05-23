@@ -101,7 +101,7 @@ header{
 
   @media (max-width: 768px) {
     .navbar {
-      display: none; /* Hide the navbar links on small screens */
+      display: none;
     }
     
     #menuicon {

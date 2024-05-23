@@ -78,15 +78,8 @@ function Inventory() {
   };
 
   const handleUpdateProduct = async (values) => {
-    // const formData = new FormData();
-    // formData.append("title", values.title);
-    // formData.append("price", values.price);
-    // formData.append("stock", values.stock);
-    // formData.append("category", values.category);
-    // if (values.image) {
-    //   formData.append("image", values.image[0].originFileObj);
-    // }
-    // console.log(values)
+    console.log(values)
+
 
     try {
       await axios.put(`http://127.0.0.1:5000/api/updateprod/${values._id}`, values, {
