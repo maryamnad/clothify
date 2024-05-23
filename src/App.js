@@ -27,7 +27,7 @@ function App() {
           <Route path="/About" element={<About />} />
           <Route path="/Terms" element={<Terms />} />
           <Route path="/Privacy" element={<Privacy />} />
-          <Route path='/cart' element={<Cart />} />
+          {/* <Route path='/cart' element={<Cart />} /> */}
           <Route path="/Women" element={<Women />} />
           <Route path="/Men" element={<Men />} />
           <Route path="/login" element={<Login />} />
@@ -35,6 +35,11 @@ function App() {
             <Route path='/user/:activepage' element={<UserProfile />} />
           ) : (
             <Route path='/user/*' element={<Navigate to="/login" />} />
+          )}
+          {isLoggedIn ? (
+            <Route path='/cart' element={<Cart />} />
+          ) : (
+            <Route path='/cart' element={<Navigate to="/login" />} />
           )}
           <Route path="/admin/" element={<Dashboard />}></Route>
           <Route path="/admin/inventory" element={<Inventory />}></Route>
