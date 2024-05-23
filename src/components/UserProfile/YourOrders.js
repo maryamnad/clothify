@@ -1,56 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 import './YourOrders.css'
 
 const YourOrders = () => {
-    const data=[
-        {
-            id: 12333,
-            date:"12/2/2019",
-            status:'Delivered',
-            total: 1600
-        },
-        {
-            id: 133,
-            date:"13/12/2129",
-            status:'On the way',
-            total: 1900
-        },
-        {
-            id: 133,
-            date:"13/12/2129",
-            status:'Delivered',
-            total: 100
-        },        
-        {
-            id: 153,
-            date:"13/2/2009",
-            status:'Cancelled',
-            total: 160
-        },       {
-            id: 12333,
-            date:"12/2/2019",
-            status:'Delivered',
-            total: 1600
-        },
-        {
-            id: 133,
-            date:"13/12/2129",
-            status:'On the way',
-            total: 1900
-        },
-        {
-            id: 133,
-            date:"13/12/2129",
-            status:'Delivered',
-            total: 100
-        },        
-        {
-            id: 153,
-            date:"13/2/2009",
-            status:'Cancelled',
-            total: 160
+   const [data,setdata]=useState([])
+   const token = useSelector((state) => state.auth.token);
+   const fetchOrderItems = async () => {
+    try {
+        if (!token) {
+            throw new Error('No token found');
         }
-    ]
+        const response = await axios.get(`http://127.0.0.1:5000/api/user/userorder`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+  
+        setdata(response.data);
+        console.log(data)
+      
+    } catch (error) {
+        console.error('Error fetching cart items:', error);
+    }
+  };
+  useEffect(()=>
+    {
+        fetchOrderItems();
+    },[]);
 
 
 
@@ -70,17 +47,18 @@ const YourOrders = () => {
                 {data.map((item,index)=>{
                     return(
                     <tr key={index}>
-                        <td>{item.id}</td>
+                        <td>{item._id}</td>
                         <td>{item.date}</td>
                         <td>
                             <p>
+                                {item.status==="paid" && <span className='bluedot'></span>}
                                 {item.status==="Delivered" && <span className='greendot'></span>}
                                 {item.status==="On the way" && <span className='yellowdot'></span>}
                                 {item.status==="Cancelled" && <span className='reddot'></span>}
 
                                 {item.status}</p>
                         </td>
-                        <td>Rs.{item.total}</td>
+                        <td>Rs.{item.price*item.stock}</td>
                     </tr>
 
                 )

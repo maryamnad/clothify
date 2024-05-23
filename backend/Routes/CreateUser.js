@@ -29,8 +29,8 @@ const router = express.Router();
 
 const { signup, login, verifyToken, getUser, refreshToken, logout, getcustomer,updateuser,changePassword  } = require("../Controller/UserController");
 const { newprod, getprod, updateprod,deleteprod ,increaseQuantity,decreaseQuantity,addproduct,category} = require("../Controller/ProductController");
-const {newcart,getcart,deleteCart,increaseCartQuantity,decreaseCartQuantity} =require("../Controller/CartController")
-const {neworder,getorder}=require("./../Controller/OderContoller")
+const {newcart,getcart,deleteCart,increaseCartQuantity,decreaseCartQuantity,clearCart} =require("../Controller/CartController")
+const {neworder,getorder,getuserorder}=require("./../Controller/OderContoller")
 
 
 
@@ -56,6 +56,7 @@ router.get('/user/getcart', verifyToken, getcart);
 router.put('/increasecart/:_id',increaseCartQuantity,decreaseQuantity);
 router.put('/decreasecart/:_id',decreaseCartQuantity,increaseQuantity);
 router.delete('/deletecart/:_id',deleteCart,addproduct)
-router.post('/payment',neworder)
+router.post('/payment',neworder,clearCart)
 router.get('/order',getorder)
+router.get('/user/userorder',verifyToken,getuserorder)
 module.exports = router;

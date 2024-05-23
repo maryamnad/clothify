@@ -27,8 +27,7 @@ const neworder = async (req, res, next) => {
                 date: new Date(),
                 status: "paid",
                 mode: paymentMethod
-            };
-            console.log(orderData)
+            }
             // Create a new order document in the database
             const order = new Order(orderData);
             return order.save();
@@ -36,6 +35,9 @@ const neworder = async (req, res, next) => {
       
           // Wait for all orders to be saved
           const orders = await Promise.all(orderPromises);
+          req.body.userid=orders[0].userid
+          console.log("Id",req.body.userid)
+          next();
       
           // Log the saved orders (for debugging purposes)
           console.log('Saved Orders:', orders);
@@ -45,6 +47,7 @@ const neworder = async (req, res, next) => {
           console.error('Error saving orders:', error);
           res.status(500).json({ message: 'Error saving orders' });
         }
+        
         
 
         
@@ -65,5 +68,18 @@ const getorder= async (req, res) => {
   }
 };
 
+const getuserorder= async (req, res) => {
+  try {
+    const id=req.id
+    const data = await Order.find({userid:id});
+    res.json(data);
+    console.log("Done")
+  } catch (err) {
+    console.error(err); // Print any errors to the console for debugging
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 exports.neworder = neworder;
 exports.getorder = getorder;
+exports.getuserorder = getuserorder;

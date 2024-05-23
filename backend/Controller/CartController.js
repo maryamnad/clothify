@@ -107,6 +107,7 @@ const decreaseCartQuantity = async (req, res,next) => {
             if (cartItem.stock > 1) {
                 cartItem.stock -= 1;
                 await cartItem.save();
+                req.body=cartItem
                 res.status(200).json({ message: 'Product quantity decreased successfully', Cart: cartItem });
             } else {
                 await Cart.findByIdAndDelete(productId);
@@ -125,6 +126,23 @@ const decreaseCartQuantity = async (req, res,next) => {
     next();
 };
 
+const clearCart = async (req, res) => {
+    try {
+        const userId = req.body.userid;
+        console.log("UserId: ",req.body.userid);
+
+        // Find all cart items that match the user ID and delete them
+        const result = await Cart.deleteMany({ userid: userId });
+        console.log("Result: ",result)
+
+        // res.status(200).json({ message: 'All products removed from cart successfully', result: result });
+    } catch (error) {
+        console.error('Error removing products from cart:', error);
+        // res.status(500).json({ message: 'Internal server error', error: error });
+    }
+};
+
+exports.clearCart = clearCart;
 exports.newcart = newcart;
 exports.getcart = getcart;
 exports.deleteCart = deleteCart;

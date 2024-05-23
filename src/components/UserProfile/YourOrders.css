@@ -96,6 +96,13 @@
     background-color: rgb(255, 81, 81);
 }
 
+.yourorders table tr td .bluedot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgb(31, 13, 224);
+}
+
 
 @media screen and (max-width: 1200px) {
     

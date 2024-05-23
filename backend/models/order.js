@@ -1,6 +1,7 @@
 const mongoose=require('mongoose')
 
 const OderSchema = new mongoose.Schema({
+  clothid: String,
   title: String,
   price: Number,
   stock: Number,
@@ -8,9 +9,11 @@ const OderSchema = new mongoose.Schema({
   sale: Number,
   onsale: Boolean,
   link: String,
+  userid: String,
   date: Date,
   status: String,
-  mode: String
+  mode: String,
+  
   }, { collection: 'Order' }); // Specify the collection name as 'teams'
   
   // Create a Mongoose model for the 'teams' collection

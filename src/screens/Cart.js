@@ -7,6 +7,7 @@ import Payment from './payment'
 import "./Cart.css"
 import { useSelector } from 'react-redux';
 import axios from 'axios'
+import { model } from 'mongoose';
 
 const Cart = () => {
 // const price=0;
@@ -110,6 +111,7 @@ const handleDelete = (product) => {
 
 const handleCheckout = () => {
   setIsModalOpen(true);
+  fetchCartItems();
 };
 
   return (
