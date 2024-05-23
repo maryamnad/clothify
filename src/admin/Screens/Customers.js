@@ -55,6 +55,10 @@ function Customers() {
             title: "City",
             dataIndex: "City",
           },
+          {
+            title: "Role",
+            dataIndex: "Role"
+          }
         ]}
         dataSource={dataSource}
         pagination={{

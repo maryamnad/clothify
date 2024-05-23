@@ -1,200 +1,203 @@
-
-
-:root{
-    --primary-color:  #b8954b;
-    --secondary-color:#f5eeee;
-    --third-color: #252525;
-}
-.Homepage{
-    position: relative;
-}
-header{
-    background-color: var(--third-color);
-    position: fixed;
-    width: 100%;
-    height: auto;
-    top:0;
-    right:0;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 30px 10%;
-    padding-bottom: 10px;
-    box-shadow: 0 8px 4px 0 rgba(85, 85, 85, 0.2);
+:root {
+  --primary-color: #b8954b;
+  --secondary-color: #f5eeee;
+  --third-color: #252525;
 }
 
-.logo img{
-    max-width: 130px;
-    height: auto;
+.Homepage {
+  position: relative;
 }
 
-.navbar a{
-    color: var(--secondary-color);
-    font-size: 16px;
-    text-transform: uppercase;
-    padding: 10px 20px;
-    font-weight: 400;
-    transition: all .42s ease;
+header {
+  background-color: var(--third-color);
+  position: fixed;
+  width: 100%;
+  height: auto;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 10%;
+  padding-bottom: 10px;
+  box-shadow: 0 8px 4px 0 rgba(85, 85, 85, 0.2);
 }
 
-.navbar a:hover{
-    color:  var(--secondary-color);
-    background-color: var(--primary-color);
+.logo img {
+  max-width: 130px;
+  height: auto;
 }
 
-
-
-.navicon i{
-    margin-right: 20px;
-    color: var(--secondary-color);
-    font-size: 25px;
-    font-weight: 400;
-    transition: all .42s ease;
+.navbar {
+  display: flex;
+  list-style-type: none;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-.navicon i:hover{
-    transform: scale(1.5);
-    color: var(--primary-color);
+.navbar a {
+  color: var(--secondary-color);
+  font-size: 16px;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  font-weight: 400;
+  transition: all 0.42s ease;
 }
 
+.navbar a:hover {
+  color: var(--secondary-color);
+  background-color: var(--primary-color);
+}
 
+.navicon {
+  display: flex;
+  align-items: center;
+}
 
-  
+.navicon i {
+  margin-right: 20px;
+  color: var(--secondary-color);
+  font-size: 25px;
+  font-weight: 400;
+  transition: all 0.42s ease;
+}
+
+.navicon i:hover {
+  transform: scale(1.5);
+  color: var(--primary-color);
+}
+
+/* Dropdown menu styles */
+.dropdown-menu {
+  display: none; /* Hidden by default */
+  position: absolute; /* Position it absolutely */
+  top: 60px; /* Adjust this value as needed */
+  right: 20px; /* Align to the right side */
+  flex-direction: column;
+  background-color: #2b2d30; /* Background color for the dropdown */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add some shadow */
+  border-radius: 4px; /* Optional: add some border radius */
+  padding: 10px; /* Optional: add some padding */
+}
+
+.dropdown-menu.active {
+  display: flex; /* Show the dropdown when active */
+}
+
+.buton {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  outline: inherit;
+  padding: 10px 20px;
+  background-color: #2b2d30;
+  color: white;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.buton:hover {
+  background-color: #c9900d;
+  color: #fff;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  margin-right: 15px; /* Adjust spacing as needed */
+  background-color: var(--third-color);
+  flex-direction: inherit;
+}
+
+.search-bar input {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px; /* Rounded corners on left side */
+  font-size: 16px;
+  outline: none;
+}
+
+.search-bar button {
+  background: none;
+  border: none;
+  border-left: none; /* Remove border between input and button */
+  border-radius: 4px; /* Rounded corners on right side */
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-bar button i {
+  font-size: 18px;
+  color: var(--secondary-color); /* Match icon color with other nav icons */
+}
+
+.search-bar button i:hover {
+  color: var(--primary-color); /* Change color on hover */
+}
+
+@media (max-width: 768px) {
   .navbar {
-    display: flex;
-    list-style-type: none;
-    position: sticky; top: 0;
-    z-index: 1000;
-    /* Add other styling for your navbar */
+    display: none;
   }
-  
-  .navicon {
-    display: flex;
-    align-items: center;
-    display: flex;
-    align-items: center;    
-    justify-content: space-between;
-    /* Add other styling for your navicon */
+
+  #menuicon {
+    display: block;
+    color: black;
   }
-  
-  
-  
-  
-  /* Dropdown menu styles */
-  .dropdown-menu {
-    display: none; /* Hidden by default */
-    position: absolute; /* Position it absolutely */
-    top: 60px; /* Adjust this value as needed */
-    right: 20px; /* Align to the right side */
-    flex-direction: column;
-    background-color: #2b2d30; /* Background color for the dropdown */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add some shadow */
-    border-radius: 4px; /* Optional: add some border radius */
-    padding: 10px; /* Optional: add some padding */
-  }
-  
+
   .dropdown-menu.active {
-    display: flex; /* Show the dropdown when active */
-  }
-  
-
-  @media (max-width: 768px) {
-    .navbar {
-      display: none;
-    }
-    
-    #menuicon {
-      display: block; 
-      color: black
-    }
-    
-    .dropdown-menu.active {
-      display: flex; 
-    }
-    
-  }
-
-  .buton {
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    font: inherit;
-    color: inherit;
-    cursor: pointer;
-    outline: inherit;
-
-    padding: 10px 20px;
-    background-color: #2b2d30;
-    color: white;
-    border-radius: 4px;
-    transition: background-color 0.3s, color 0.3s;
-  }
-
-
-  .buton:hover {
-    background-color: #c9900d;
-    color: #fff;
-
-  }
-
-  /* .search-bar {
     display: flex;
-    align-items: center;
-    margin-right: 15px; 
-    background-color: var(--third-color);
   }
-  
-  .search-bar input {
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
+}
+
+/* Responsive styles for the header */
+@media (max-width: 1024px) {
+  header {
+    padding: 20px 5%;
   }
-  
-  .search-bar button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px 10px;
-    font-size: 16px;
-  } */
+
+  .navbar a {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .navicon i {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
   .search-bar {
-    display: flex;
-    align-items: center;
-    margin-right: 15px; /* Adjust spacing as needed */
-    background-color: var(--third-color);
-    flex-direction: inherit;
+    width: 100%;
+    justify-content: space-between;
   }
-  
+
   .search-bar input {
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px ; /* Rounded corners on left side */
-    font-size: 16px;
-    outline: none;
+    width: 70%;
   }
-  
+
   .search-bar button {
-    background: none;
-    border: none;
-    border-left: none; /* Remove border between input and button */
-    border-radius:4px; /* Rounded corners on right side */
-    cursor: pointer;
-    padding: 5px 10px;
-    font-size: 16px;
-    outline: none;
+    width: 30%;
+    text-align: center;
   }
-  
-  .search-bar button i {
-    font-size: 18px;
-    color: var(--secondary-color); /* Match icon color with other nav icons */
-    /* transition: color 0.3s; */
+}
+
+@media (max-width: 480px) {
+  .search-bar {
+    flex-direction: column;
   }
-  
-  .search-bar button i:hover {
-    color: var(--primary-color); /* Change color on hover */
+
+  .search-bar input,
+  .search-bar button {
+    width: 100%;
+    margin-bottom: 5px;
   }
-  
-  
+}
