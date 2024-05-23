@@ -37,7 +37,12 @@ function SignInForm() {
         alert(`You are login with email: ${Email} and password: ${Password}`);
         dispatch(authActions.login(token));
         console.log(user)
-        history("/");
+        if(user.Role=='user')
+        {
+        history("/");}
+        else{
+          history("/admin")
+        }
     } catch (err) {
       alert("Incorrect Email or Password");
       
@@ -47,12 +52,12 @@ function SignInForm() {
     e.preventDefault();
     
 
-    for (const key in state) {
-      setState({
-        ...state,
-        [key]: ""
-      });
-    }
+    // for (const key in state) {
+    //   setState({
+    //     ...state,
+    //     [key]: ""
+    //   });
+    // }
     sendRequest()
     
   };

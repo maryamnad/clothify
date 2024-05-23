@@ -5,7 +5,7 @@ const JWT_SECRET_KEY = "MyKey";
 
 const signup = async (req,res) => {
 
-    const { Name, Email, Password } = req.body;
+    const { Name, Email, Password ,Role} = req.body;
     console.log(req.body)
     let existingUser;
     try {
@@ -21,7 +21,8 @@ const signup = async (req,res) => {
     const user = new User({
         Name: req.body.Name,
         Email: req.body.Email,
-        Password: hashedPassword
+        Password: hashedPassword,
+        Role: req.body.Role
     });
     try {
         await user.save();
@@ -219,6 +220,7 @@ const getcustomer= async (req, res) => {
       user.PostalCode = postal || user.PostalCode;
       user.Address = address || user.Address;
       user.City = city || user.City;
+      
   
       // Save updated user
       const updatedUser = await user.save();

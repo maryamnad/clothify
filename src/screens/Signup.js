@@ -1,15 +1,18 @@
-import { useNavigate } from "react-router-dom"
-import axios from "axios";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 function SignUpForm() {
   const history = useNavigate();
   const [state, setState] = React.useState({
     name: "",
     email: "",
-    password: ""
+    password: "",
+    role: "user" // default role is user
   });
-  const handleChange = evt => {
-    const value = evt.target.value;
+
+  const handleChange = (evt) => {
+    const value = evt.target.type === 'radio' ? evt.target.value : evt.target.value;
     setState({
       ...state,
       [evt.target.name]: value
@@ -17,24 +20,26 @@ function SignUpForm() {
   };
 
   const sendRequest = async () => {
-    const res = await axios.post("http://127.0.0.1:5000/api/signup", {
-      Name: state.name,
-      Email: state.email,
-      Password: state.password
-    }).catch(err => console.log(err));
-    // const data = await res.data;
-    // return data;
-  }  
+    try {
+      const res = await axios.post("http://127.0.0.1:5000/api/signup", {
+        Name: state.name,
+        Email: state.email,
+        Password: state.password,
+        Role: state.role
+      });
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  const handleOnSubmit = evt => {
+  const handleOnSubmit = (evt) => {
     evt.preventDefault();
-    sendRequest().then(()=> history("/"));
+    sendRequest().then(() => history("/login"));
 
-    
-
-    const { name, email, password } = state;
+    const { name, email, password, role } = state;
     alert(
-      `You are sign up with name: ${name} email: ${email} and password: ${password}`
+      `You are signed up with name: ${name}, email: ${email}, password: ${password}, role: ${role}`
     );
 
     for (const key in state) {
@@ -82,7 +87,25 @@ function SignUpForm() {
           onChange={handleChange}
           placeholder="Password"
         />
-        <button onClick={handleOnSubmit}>Sign Up</button>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <input
+            type="radio"
+            name="role"
+            value="user"
+            checked={state.role === "user"}
+            onChange={handleChange}
+          />
+          <label style={{ marginRight: '10px' }}>User</label>
+          <input
+            type="radio"
+            name="role"
+            value="admin"
+            checked={state.role === "admin"}
+            onChange={handleChange}
+          />
+          <label>Admin</label>
+        </div>
+        <button type="submit">Sign Up</button>
       </form>
     </div>
   );

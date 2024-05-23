@@ -23,13 +23,7 @@ function Orders() {
 
   const handleStatusChange = (value, record) => {
     // Update the status in the state
-    const newDataSource = dataSource.map((order) => {
-      if (order._id === record._id) {
-        return { ...order, status: value };
-      }
-      return order;
-    });
-
+    
     // Optionally, send the updated status to the server
     axios.put(`http://127.0.0.1:5000/api/order/${record._id}`, { status: value })
       .then((res) => {

@@ -30,6 +30,11 @@ const UserSchema = new mongoose.Schema({
     City: {
         type: String,
         default: 'Unknown' // Default value for City
+    },
+    Role:
+    {
+        type: String,
+        required: true
     }
 }, { collection: 'Users' });
 
